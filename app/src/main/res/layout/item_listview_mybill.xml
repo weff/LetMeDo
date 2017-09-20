@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="@dimen/length_110"
+        android:layout_height="@dimen/length_110"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/length_10"
+        android:background="@drawable/imgbg"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="@dimen/length_10"/>
+
+    <TextView
+        android:id="@+id/goodsname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/length_10"
+        android:layout_marginLeft="@dimen/length_10"
+        android:layout_toRightOf="@+id/picture"
+        android:text="A级-新西兰加力果"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/length_10"
+        android:layout_marginTop="@dimen/length_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/goodsprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9.9"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/goodsnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/length_5"
+            android:text="x2" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

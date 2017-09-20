@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translucent_popupwindow" >
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:background="@color/gray_e"
+        android:padding="@dimen/length_10"
+        android:textSize="@dimen/size_14"/>
+    <View
+        android:id="@+id/view1"
+        android:layout_above="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_5"
+        android:background="@color/gray"/>
+
+    <TextView
+        android:id="@+id/addaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view1"
+        android:padding="@dimen/length_10"
+        android:gravity="center"
+        android:text="@string/addnewaddress"
+        android:textColor="@color/green"
+        android:textSize="@dimen/size_14"
+        android:background="@color/gray_e"/>
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_0.5"
+        android:background="@color/gray"
+        android:layout_above="@id/addaddress"/>
+
+    <com.jtsoft.letmedo.custom.ListViewForScrollView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_e"
+        android:layout_above="@+id/view2"/>
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_0.5"
+        android:background="@color/gray"
+        android:layout_above="@+id/listview"/>
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/goodsaddress"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_14"
+            android:gravity="center"
+            android:padding="@dimen/length_10"
+            android:background="@color/gray_e"
+            android:layout_above="@+id/view3"/>
+</RelativeLayout>

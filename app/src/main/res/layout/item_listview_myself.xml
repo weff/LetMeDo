@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/length_120">
+
+    <TextView
+        android:id="@+id/orders"
+        android:layout_marginLeft="@dimen/length_10"
+        android:layout_marginTop="@dimen/length_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_18"
+        android:textColor="@color/black"
+        android:text="订单号：149941650041521"/>
+
+    <TextView
+        android:id="@+id/totalprice"
+        android:layout_marginRight="@dimen/length_10"
+        android:layout_marginTop="@dimen/length_20"
+        android:textSize="@dimen/size_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="0.05"
+        android:textColor="@color/green"
+        android:drawableLeft="@drawable/qian"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_18"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/length_20"
+        android:layout_toLeftOf="@+id/totalprice"
+        android:text="订单金额： "/>
+
+    <Button
+        android:id="@+id/share"
+        android:layout_width="@dimen/length_80"
+        android:layout_height="@dimen/length_30"
+        android:background="@drawable/shape_background_button"
+        android:text="@string/share"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/length_30"
+        android:layout_marginBottom="@dimen/length_20"/>
+
+</RelativeLayout>

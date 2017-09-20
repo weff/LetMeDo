@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/mybii_layout">
+
+    <include layout="@layout/title_bar" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/address_null"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/length_70">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/length_10"
+                    android:text="请选择地址"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_16" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/length_10"
+                    android:src="@drawable/backpress" />
+            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/edit_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/length_70"
+            android:layout_marginLeft="@dimen/length_10"
+            android:layout_marginRight="@dimen/length_10" >
+
+            <TextView
+                android:id="@+id/name_address"
+                android:text="@string/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/length_10"
+                android:layout_marginLeft="@dimen/length_10"
+                android:textSize="@dimen/size_16"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/phonenumber_address"
+                android:text="18319628135"
+                android:layout_marginTop="@dimen/length_10"
+                android:layout_marginLeft="@dimen/length_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_16"
+                android:layout_toRightOf="@+id/name_address"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/address"
+                android:text="@string/address"
+                android:singleLine="false"
+                android:layout_below="@+id/phonenumber_address"
+                android:layout_marginTop="@dimen/length_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/length_6"
+                android:textSize="@dimen/size_16"
+                android:layout_toRightOf="@+id/name_address"
+                android:textColor="@color/gray"
+                android:layout_marginBottom="@dimen/length_5"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/length_1"
+                android:background="@color/gray"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.jtsoft.letmedo.custom.ListViewForScrollView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+                <include layout="@layout/item_listview_mybill"
+                    android:id="@+id/goodsLayout"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/length_1"
+                android:background="@color/gray" />
+
+            <RelativeLayout
+                android:id="@+id/coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/couponNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/length_10"
+                    android:text="@string/mycoupon"
+                    android:textSize="@dimen/size_14"
+                    android:layout_marginTop="@dimen/length_5"
+                    android:layout_marginBottom="@dimen/length_5"
+                    android:textColor="@color/setpassword"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/length_10"
+                    android:src="@drawable/backpress" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/length_1"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/length_10"
+                        android:text="@string/goodsamount"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_14" />
+
+                    <TextView
+                        android:id="@+id/goodsmoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/length_10"
+                        android:padding="@dimen/length_10"
+                        android:text="139.00"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/size_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/length_10"
+                        android:text="@string/coupon"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_14" />
+
+                    <TextView
+                        android:id="@+id/coupon_ticket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/length_10"
+                        android:padding="@dimen/length_10"
+                        android:text="0.00"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/size_14" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/length_10"
+                        android:text="@string/deliverydistance"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_14" />
+
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/length_10"
+                        android:padding="@dimen/length_10"
+                        android:text="0.00公里"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/size_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/length_10"
+                        android:text="配送店铺"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_14" />
+
+                    <TextView
+                        android:id="@+id/shopName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/length_10"
+                        android:padding="@dimen/length_10"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/size_14" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/juli"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/length_10"
+                        android:text="@string/deliveryamount"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_14" />
+
+                    <TextView
+                        android:id="@+id/mark"
+                        android:layout_width="@dimen/length_16"
+                        android:layout_height="@dimen/length_16"
+                        android:layout_toRightOf="@+id/juli"
+                        android:background="@drawable/shape_mark"
+                        android:gravity="center"
+                        android:text=" ? "
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_12" />
+
+                    <TextView
+                        android:id="@+id/send_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/length_10"
+                        android:drawableLeft="@drawable/qian"
+                        android:padding="@dimen/length_10"
+                        android:text="0.00"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/size_14" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/length_10"
+                        android:text="@string/payamount"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_14" />
+
+                    <TextView
+                        android:id="@+id/Actual_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/length_10"
+                        android:drawableLeft="@drawable/qian"
+                        android:padding="@dimen/length_10"
+                        android:text="139.00"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/size_14" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/order"
+                    android:layout_marginTop="@dimen/length_50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="立即下单"
+                    android:textColor="@color/white"
+                    android:background="@color/green"
+                    android:layout_marginLeft="@dimen/length_10"
+                    android:layout_marginRight="@dimen/length_10"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

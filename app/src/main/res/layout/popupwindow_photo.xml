@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_50"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_14"
+        android:padding="@dimen/length_10"
+        android:background="@color/gray"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"/>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_above="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_1"
+        android:background="@color/gray_e"/>
+
+    <TextView
+        android:id="@+id/pick_photo"
+        android:layout_above="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_50"
+        android:textSize="@dimen/size_14"
+        android:text="@string/pick_photo"
+        android:padding="@dimen/length_10"
+        android:background="@color/gray"
+        android:gravity="center"/>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_above="@+id/pick_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_1"
+        android:background="@color/gray_e"/>
+
+    <TextView
+        android:id="@+id/take_photo"
+        android:layout_above="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_50"
+        android:textSize="@dimen/size_14"
+        android:text="@string/take_photo"
+        android:padding="@dimen/length_10"
+        android:background="@color/gray"
+        android:gravity="center"/>
+
+
+
+
+
+
+
+</RelativeLayout>

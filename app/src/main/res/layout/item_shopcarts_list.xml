@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/shop_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_150"
+        android:layout_marginBottom="@dimen/length_10" >
+
+        <CheckBox
+            android:id="@+id/checkbox_shopcart"
+            android:layout_marginLeft="@dimen/length_20"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/length_20"
+            android:layout_height="@dimen/length_20"
+            android:background="@null"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:button="@drawable/check_box"/>
+
+        <ImageView
+            android:layout_toRightOf="@+id/checkbox_shopcart"
+            android:id="@+id/shop_imgview"
+            android:layout_width="@dimen/length_110"
+            android:layout_height="@dimen/length_110"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/length_10"
+            android:background="@drawable/imgbg"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:id="@+id/miaoshu"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/length_20"
+            android:layout_toRightOf="@+id/shop_imgview"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/shop_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/length_33"
+                android:layout_marginTop="@dimen/length_40"
+                android:text="@string/subjectimg"
+                android:textColor="@color/shop_subject"
+                android:textSize="@dimen/size_14" />
+
+
+            <TextView
+                android:id="@+id/current_price"
+                android:layout_marginTop="@dimen/length_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/length_2"
+                android:gravity="center_vertical"
+                android:text="45"
+                android:textColor="@color/current_price"
+                android:textSize="@dimen/size_18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="@dimen/length_10"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/length_10"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/sub_button"
+                android:layout_width="@dimen/length_25"
+                android:layout_height="@dimen/length_25"
+                android:src="@drawable/sub_button" />
+
+
+            <TextView
+                android:id="@+id/num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/length_12"
+                android:paddingRight="@dimen/length_12"
+                android:text="1"
+                android:textSize="@dimen/size_14"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/add_button"
+                android:layout_width="@dimen/length_25"
+                android:layout_height="@dimen/length_25"
+                android:src="@drawable/add_button" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

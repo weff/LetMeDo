@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/background_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_100"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="@dimen/length_10"
+        android:layout_marginLeft="@dimen/length_10"
+        android:background="@drawable/coupon_background"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/coupon_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/length_50"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_20"
+            android:drawableLeft="@drawable/qian_white"/>
+
+        <TextView
+            android:id="@+id/coupon_newpersonal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/coupon_newpersonal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_18"
+            android:layout_marginTop="@dimen/length_10"/>
+        <TextView
+            android:id="@+id/scene"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scene"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/coupon_newpersonal"
+            android:layout_marginTop="@dimen/length_10"/>
+
+        <TextView
+            android:id="@+id/cutoff_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="2017.04.30到期"
+            android:textSize="@dimen/size_12"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/length_10"/>
+
+        <!--<TextView-->
+        <!--android:id="@+id/outtime"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="(仅剩3天)"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="@dimen/length_10"-->
+        <!--android:layout_toRightOf="@+id/cutoff_time"-->
+        <!--android:textSize="@dimen/size_12"/>-->
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
