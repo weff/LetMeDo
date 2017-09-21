@@ -29,6 +29,7 @@ import com.jtsoft.letmedo.activity.MyOrderActivity;
 import com.jtsoft.letmedo.activity.PersonalActivity;
 import com.jtsoft.letmedo.activity.SetPasswordActivity;
 import com.jtsoft.letmedo.bean.GetCouponCount;
+import com.jtsoft.letmedo.bean.GetGoodsNumBean;
 import com.jtsoft.letmedo.bean.PersonalMsgBean;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
@@ -76,6 +77,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private Gson gson;
     private RelativeLayout mCountDesign;
     private TextView mCouponCount;
+    private RelativeLayout mPrePay;
+    private TextView mPreCount;
+    private RelativeLayout mPreGet;
+    private TextView mPreGetCount;
+    private RelativeLayout mProPay;
+    private TextView mProPayCount;
 
     //视图初始化
     @Nullable
@@ -124,6 +131,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         initData();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            strToken = SharedpreferencesManager.getToken();
+            getGoodsNum(strToken);
+        }
+    }
+
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
         Log.e("TAG","Account=======>" + strToken);
@@ -141,6 +157,73 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         getAccountMsg();
         //获取优惠券数量
         getCouponCount(strToken);
+        //获取待收货，待付款等商品数量
+        getGoodsNum(strToken);
+    }
+
+    private void getGoodsNum(String strToken) {
+        request = new Request.Builder()
+                .url(Constant.CONSTANT + "/getOrdersAndCouponCount.do?token=" + strToken)
+                .build();
+        client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShort(context,"网络请求异常");
+                        return;
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String strJson = response.body().string();
+                gson = new Gson();
+                final GetGoodsNumBean getGoodsNumBean = gson.fromJson(strJson, GetGoodsNumBean.class);
+                if (getGoodsNumBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //未付款的订单数量
+                            int unpaidCount = getGoodsNumBean.getResponse().getUnpaidCount();
+                            //待收货的订单数量
+                            int paidCount = getGoodsNumBean.getResponse().getPaidCount();
+                            //已完成的订单数量
+                            int receivedCount = getGoodsNumBean.getResponse().getReceivedCount();
+                            if (unpaidCount == 0) {
+                                mPrePay.setVisibility(View.INVISIBLE);
+                            }else {
+                                mPrePay.setVisibility(View.VISIBLE);
+                                mPreCount.setText(unpaidCount + "");
+                            }
+                            if (paidCount == 0) {
+                                mPreGet.setVisibility(View.INVISIBLE);
+                            }else {
+                                mPreGet.setVisibility(View.VISIBLE);
+                                mPreGetCount.setText(paidCount + "");
+                            }
+                            if (receivedCount == 0) {
+                                mProPay.setVisibility(View.INVISIBLE);
+                            }else {
+                                mProPay.setVisibility(View.VISIBLE);
+                                mProPayCount.setText(receivedCount + "");
+                            }
+                        }
+                    });
+                }else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(context, (String) getGoodsNumBean.getMessage());
+                            return;
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void getCouponCount(String strToken) {
@@ -253,6 +336,18 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         mCountDesign = (RelativeLayout)view.findViewById(R.id.countdesign);
         //可使用优惠券数量控件
         mCouponCount = (TextView) view.findViewById(R.id.pay_count);
+        //待付款数字显示父控件
+        mPrePay = (RelativeLayout) view.findViewById(R.id.count_pre_pay);
+        //待付款数字显示
+        mPreCount = (TextView) view.findViewById(R.id.pre_pay_count);
+        //待收货数字显示父控件
+        mPreGet = (RelativeLayout) view.findViewById(R.id.count_pre_get);
+        //待收货数字显示
+        mPreGetCount = (TextView) view.findViewById(R.id.pre_get_count);
+        //已完成数字显示父控件
+        mProPay = (RelativeLayout) view.findViewById(R.id.count_pro_get);
+        //已完成数字显示控件
+        mProPayCount = (TextView) view.findViewById(R.id.pro_get_count);
 
 
     }
