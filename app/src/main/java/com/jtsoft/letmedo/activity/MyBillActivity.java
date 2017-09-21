@@ -82,7 +82,6 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
     private String districtName;
     private String resultDistance;
     private List<GetUseCoupon.ResponseBean.CouponListBean> couponList;
-    private String couponId = "";
     private int addressID;
     private double couponPrice;
     private String b = "";
@@ -100,7 +99,7 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
     private TextView goodsprice;
     private TextView goodsnum;
     private String mGoodsId;
-    private String couponReceiveId;
+    private String couponReceiveId = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -284,10 +283,10 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     //跳到订单详情
                     if (state == 1) {
-                        initsubmitGoods(mGoodsId,couponReceiveId,"",addressID);
+                        initsubmitGoods();//mGoodsId, couponReceiveId, "", addressID
                     } else {
-                        Log.e("TTAAGG", "goodsIds：" + shopCartId + "couponId：" + couponId + "addressID：" + addressID);
-                        initsubmit(shopCartId, couponReceiveId, "", addressID);//购物车下单接口
+                        Log.e("TTAAGG", "goodsIds：" + shopCartId + "couponId：" + couponReceiveId + "addressID：" + addressID);
+                        initsubmit();//购物车下单接口shopCartId, couponReceiveId, "", addressID
                     }
 
                 }
@@ -296,10 +295,10 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void initsubmitGoods(final String mGoodsId, String couponId, String s, int addressID) {
+    private void initsubmitGoods() {//final String mGoodsId, Integer couponId, String s, int addressID
         Request request = new Request.Builder()
-                .url(Constant.CONSTANT + "/submitGoodsOrder.do?token=" + strToken + "&goodsId=" + mGoodsId + "&couponReceiveId=" + couponId
-                 + "&remarke=" + s + "&addressId=" + addressID)
+                .url(Constant.CONSTANT + "/submitGoodsOrder.do?token=" + strToken + "&goodsId=" + mGoodsId + "&couponReceiveId=" + couponReceiveId
+                        + "&remarke=" + "" + "&addressId=" + addressID)
                 .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
@@ -319,20 +318,20 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
                 String strJson = response.body().string();
                 Gson gson = new Gson();
                 final GoodsOrderDetailBean goodsOrderDetailBean = gson.fromJson(strJson, GoodsOrderDetailBean.class);
-                   if (goodsOrderDetailBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
-                       int orderId = goodsOrderDetailBean.getResponse().getOrderId();
-                       intent = new Intent(MyBillActivity.this,OrderDetailsActivity.class);
-                       intent.putExtra("orderId", orderId);
-                       startActivity(intent);
-                   } else {
-                       runOnUiThread(new Runnable() {
-                           @Override
-                           public void run() {
-                               ToastUtil.showShort(MyBillActivity.this, (String) goodsOrderDetailBean.getMessage());
-                               return;
-                           }
-                       });
-                   }
+                if (goodsOrderDetailBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    int orderId = goodsOrderDetailBean.getResponse().getOrderId();
+                    intent = new Intent(MyBillActivity.this, OrderDetailsActivity.class);
+                    intent.putExtra("orderId", orderId);
+                    startActivity(intent);
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(MyBillActivity.this, (String) goodsOrderDetailBean.getMessage());
+                            return;
+                        }
+                    });
+                }
             }
         });
     }
@@ -348,11 +347,11 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     //跳转到订单详情
-    private void initsubmit(String b, String couponId, String s, int addressID) {
-        Log.e("TAG", "shoppingCartIds :" + b + "couponReceiveId :" + couponId + "remarke:" + s + "addressId:" + addressID);
+    private void initsubmit() {//String b, Integer couponReceiveId, String s, int addressID
+        Log.e("TAG", "shoppingCartIds :" + b + "couponReceiveId :" + couponReceiveId + "remarke:" + "" + "addressId:" + addressID);
         Request request = new Request.Builder()
                 .url(Constant.CONSTANT + "/submitShoppingCartOrder.do?token=" + strToken + "&shoppingCartIds=" + b + "&couponReceiveId="
-                        + couponId + "&remarke=" + s + "&addressId=" + addressID)
+                        + couponReceiveId + "&remarke=" + "" + "&addressId=" + addressID)
                 .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
@@ -416,6 +415,7 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == NetWorkUtils.USECOUPON) {
             if (resultCode == NetWorkUtils.USECOUPON_RESULT) {
                 couponReceiveId = data.getStringExtra("couponReceiveId");
+                Log.e("TAG", "couponReceiveId--=====" + couponReceiveId);
                 couponPrice = data.getDoubleExtra("couponPrice", -1);
                 CouponPrice.setText("- ￥" + couponPrice);
                 //实际付款总金额

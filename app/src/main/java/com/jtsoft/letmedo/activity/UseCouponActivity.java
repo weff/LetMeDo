@@ -40,13 +40,14 @@ public class UseCouponActivity extends AppCompatActivity implements View.OnClick
     private ListView mListView;
     private List<GetUseCoupon.ResponseBean.CouponListBean> couponList;
     private String strToken;
-    private int couponid;
     private double couponPrice;
     private Button mUse;
     private Intent intent;
     private ImageView Back;
     private TextView Tittle;
     private TextView Edit;
+    private int mCouponReceiveId;
+    private String couponReceiveId;
 
 
     @Override
@@ -119,14 +120,12 @@ public class UseCouponActivity extends AppCompatActivity implements View.OnClick
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                         //优惠券ID
-                                        couponid = couponList.get(position).getCouponId();
-                                        int CouponReceiveId = couponList.get(position).getCouponReceiveId();
-                                        String couponReceiveId = CouponReceiveId + "";
-                                        String couponId = couponid + "";
+                                        mCouponReceiveId = couponList.get(position).getCouponReceiveId();
+                                        couponReceiveId = mCouponReceiveId + "";
                                         //优惠券价格
                                         couponPrice = couponList.get(position).getCouponPrice();
                                         intent = new Intent();
-                                        intent.putExtra("couponReceiveId",couponReceiveId);
+                                        intent.putExtra("couponReceiveId", couponReceiveId);
                                         intent.putExtra("couponPrice",couponPrice);
                                         setResult(NetWorkUtils.USECOUPON_RESULT,intent);
                                         finish();
@@ -156,7 +155,9 @@ public class UseCouponActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.edit:
                 intent = new Intent();
-                intent.putExtra("couponId","");
+//                couponReceiveId = "";
+//                intent.putExtra("couponReceiveId",couponReceiveId);
+                intent.putExtra("couponReceiveId","");
                 intent.putExtra("couponPrice",0.0);
                 setResult(NetWorkUtils.USECOUPON_RESULT,intent);
                 finish();

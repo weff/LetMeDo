@@ -142,7 +142,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
-        Log.e("TAG","Account=======>" + strToken);
+        Log.e("TAG", "Account=======>" + strToken);
         OrderBill.setOnClickListener(this);
         PrePay.setOnClickListener(this);
         PreConfirm.setOnClickListener(this);
@@ -172,7 +172,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context,"网络请求异常");
+                        ToastUtil.showShort(context, "网络请求异常");
                         return;
                     }
                 });
@@ -195,25 +195,25 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                             int receivedCount = getGoodsNumBean.getResponse().getReceivedCount();
                             if (unpaidCount == 0) {
                                 mPrePay.setVisibility(View.INVISIBLE);
-                            }else {
+                            } else {
                                 mPrePay.setVisibility(View.VISIBLE);
                                 mPreCount.setText(unpaidCount + "");
                             }
                             if (paidCount == 0) {
                                 mPreGet.setVisibility(View.INVISIBLE);
-                            }else {
+                            } else {
                                 mPreGet.setVisibility(View.VISIBLE);
                                 mPreGetCount.setText(paidCount + "");
                             }
                             if (receivedCount == 0) {
                                 mProPay.setVisibility(View.INVISIBLE);
-                            }else {
+                            } else {
                                 mProPay.setVisibility(View.VISIBLE);
                                 mProPayCount.setText(receivedCount + "");
                             }
                         }
                     });
-                }else {
+                } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -237,7 +237,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context,"网络请求异常");
+                        ToastUtil.showShort(context, "网络请求异常");
                         return;
                     }
                 });
@@ -256,7 +256,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                             mCouponCount.setText(availableCouponNum + "");
                         }
                     });
-                }else {
+                } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -333,7 +333,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //账户余额控件
         Acount = (RelativeLayout) view.findViewById(R.id.my_account);
         //可使用优惠券的控件
-        mCountDesign = (RelativeLayout)view.findViewById(R.id.countdesign);
+        mCountDesign = (RelativeLayout) view.findViewById(R.id.countdesign);
         //可使用优惠券数量控件
         mCouponCount = (TextView) view.findViewById(R.id.pay_count);
         //待付款数字显示父控件
@@ -363,7 +363,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //进入订单页面
             case R.id.my_bill_order:
                 intent = new Intent(context, MyOrderActivity.class);
-                intent.putExtra("MyOrderActivity",1);
+                intent.putExtra("MyOrderActivity", 1);
                 startActivity(intent);
                 break;
             //进入地址管理页面
@@ -374,19 +374,19 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //待付款
             case R.id.about_my_waiting_to_pay:
                 intent = new Intent(context, MyOrderActivity.class);
-                intent.putExtra("MyOrderActivity",1);
+                intent.putExtra("MyOrderActivity", 1);
                 startActivity(intent);
                 break;
             //待收货
             case R.id.about_my_waiting_to_confirm:
                 intent = new Intent(context, MyOrderActivity.class);
-                intent.putExtra("MyOrderActivity",2);
+                intent.putExtra("MyOrderActivity", 2);
                 startActivity(intent);
                 break;
             //已完成
             case R.id.about_my_already_donw:
                 intent = new Intent(context, MyOrderActivity.class);
-                intent.putExtra("MyOrderActivity",3);
+                intent.putExtra("MyOrderActivity", 3);
                 startActivity(intent);
 
                 break;
@@ -409,7 +409,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.my_account:
                 //跳到充值页面
-                intent = new Intent(context,MyAccountActivity.class);
+                intent = new Intent(context, MyAccountActivity.class);
                 startActivity(intent);
                 break;
             default:

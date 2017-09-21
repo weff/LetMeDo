@@ -162,7 +162,7 @@ public class BillOrderBean {
             private double orderOldPrice;
             private int expressPrice;
             private Object couponReceiveId;
-            private int couponPrice;
+            private double couponPrice;
             private Object payTime;
             private Object payType;
             private int deliveryLocationId;
@@ -246,11 +246,11 @@ public class BillOrderBean {
                 this.couponReceiveId = couponReceiveId;
             }
 
-            public int getCouponPrice() {
+            public double getCouponPrice() {
                 return couponPrice;
             }
 
-            public void setCouponPrice(int couponPrice) {
+            public void setCouponPrice(double couponPrice) {
                 this.couponPrice = couponPrice;
             }
 

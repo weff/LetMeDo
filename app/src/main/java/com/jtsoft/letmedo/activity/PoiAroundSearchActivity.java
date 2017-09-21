@@ -1,10 +1,5 @@
 package com.jtsoft.letmedo.activity;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -26,17 +20,15 @@ import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import static android.R.attr.apiKey;
-import static android.R.attr.start;
 import static com.amap.api.maps2d.MapsInitializer.setApiKey;
 
 public class PoiAroundSearchActivity extends FragmentActivity implements TextWatcher, Inputtips.InputtipsListener {
     private MapView mapview;
-    private String provId;
-    private String cityId;
-    private String districtId;
-    private String addUserName;
-    private String addUserPhone;
     private String strToken;
     private AutoCompleteTextView searchText;
     private ListView minputlist;

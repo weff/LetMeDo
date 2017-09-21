@@ -580,7 +580,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                         @Override
                         public void run() {
                             ToastUtil.showShort(OrderDetailsActivity.this,"支付成功");
-//                            intent = new Intent(OrderDetailsActivity.this,);
+                            intent = new Intent(OrderDetailsActivity.this,MainActivity.class);
                             startActivity(intent);
                         }
                     });
