@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/length_6"
-            android:textSize="@dimen/size_18"
+            android:textSize="@dimen/size_14"
             android:layout_toRightOf="@+id/name_address"
             android:textColor="@color/gray" />
 
