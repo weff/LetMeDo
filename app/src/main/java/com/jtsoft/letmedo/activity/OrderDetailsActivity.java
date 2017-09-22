@@ -552,9 +552,10 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     }
     //余额支付逻辑
     private void BalancePay(String strToken, int orderId, int i, String s) {
+        Log.e("TAG","orderId==" + orderId + ":i==" + i + ":s==" + s);
         Request request = new Request.Builder()
-                .url(Constant.CONSTANT + "/weixin/payOrder.do?token=" + strToken + "&orderId=" + orderId
-                 + "&payType=" + i + "smsCode=" + s)
+                .url(Constant.CONSTANT + "/payOrder.do?token=" + strToken + "&orderId=" + orderId
+                 + "&payType=" + i + "&smsCode=" + s)
                 .build();
 
         OkHttpClient client = new OkHttpClient();

@@ -37,7 +37,7 @@
     </RelativeLayout>
 
     <View
-        android:layout_below="@+id/tittle_layout"
+        android:layout_below="@id/tittle_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/length_1"

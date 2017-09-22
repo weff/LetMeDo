@@ -13,14 +13,14 @@
         android:padding="@dimen/length_10"/>
     <View
         android:id="@+id/view2"
-        android:layout_below="@+id/bill_order"
+        android:layout_below="@id/bill_order"
         android:layout_width="match_parent"
         android:layout_height="@dimen/length_1"
         android:background="@color/gray"/>
     <LinearLayout
         android:id="@+id/linearlayout"
         android:orientation="horizontal"
-        android:layout_below="@+id/view2"
+        android:layout_below="@id/view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -43,14 +43,14 @@
     </LinearLayout>
     <View
         android:id="@+id/view3"
-        android:layout_below="@+id/linearlayout"
+        android:layout_below="@id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/length_1"
         android:background="@color/gray"/>
     <TextView
         android:id="@+id/price_goods"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/view3"
+        android:layout_below="@id/view3"
         android:layout_marginTop="@dimen/length_10"
         android:text="商品总价： ¥99.70"
         android:textSize="@dimen/size_16"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:text="共 2 件"
         android:textColor="@color/black"
-        android:layout_toLeftOf="@+id/price_goods"
+        android:layout_toLeftOf="@id/price_goods"
         android:layout_below="@+id/view3"
         android:layout_marginTop="@dimen/length_10"
         android:layout_marginRight="@dimen/length_10"/>
@@ -90,7 +90,7 @@
         android:layout_height="@dimen/length_40"
         android:text="去支付"
         android:gravity="center"
-        android:layout_toLeftOf="@+id/delete"
+        android:layout_toLeftOf="@id/delete"
         android:layout_alignParentBottom="true"
         android:background="@drawable/shape_background_button"
         android:layout_marginBottom="@dimen/length_10"

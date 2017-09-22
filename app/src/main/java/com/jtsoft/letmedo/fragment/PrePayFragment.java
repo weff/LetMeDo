@@ -10,24 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.activity.OrderDetailsActivity;
 import com.jtsoft.letmedo.adapter.PrePayFragmentAdapter;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jtsoft.letmedo.bean.BillOrderBean;
+import com.jtsoft.letmedo.bean.CancelOrderBean;
 import com.jtsoft.letmedo.custom.ReFreshListView;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,7 +39,7 @@ import okhttp3.Response;
  * 未付款页面
  */
 
-public class PrePayFragment extends Fragment {
+public class PrePayFragment extends Fragment implements PrePayFragmentAdapter.PayGoodsInterface{
 
     private View view;
     private Context context;
@@ -145,6 +143,7 @@ public class PrePayFragment extends Fragment {
     private void setAdapter() {
         if (adapter == null) {
             adapter = new PrePayFragmentAdapter(context, orderList);
+            adapter.setPayGoodsInterface(this);
             mListView.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();
@@ -193,4 +192,59 @@ public class PrePayFragment extends Fragment {
         initspone(strToken, currentPage, pageSize, 0, 0);
     }
 
+    @Override
+    public void doPay(int position) {
+        int orderId = orderList.get(position).getOrderId();
+        Intent intent = new Intent(context, OrderDetailsActivity.class);
+        intent.putExtra("orderId",orderId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void doCancel(final int position) {
+        int orderId = orderList.get(position).getOrderId();
+        //需要调用取消接口
+        Request request = new Request.Builder()
+                .url(Constant.CONSTANT + "/cancelOrder.do?token=" + strToken + "&orderId=" + orderId)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShort(context,"网络请求异常");
+                        return;
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String strJson = response.body().string();
+                Gson gson = new Gson();
+                final CancelOrderBean cancelOrderBean = gson.fromJson(strJson, CancelOrderBean.class);
+                if (cancelOrderBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            orderList.remove(position);
+                            adapter.notifyDataSetChanged();
+                            ToastUtil.showShort(context,"订单取消成功");
+                        }
+                    });
+                }else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(context, (String) cancelOrderBean.getMessage());
+                            return;
+                        }
+                    });
+                }
+            }
+        });
+
+    }
 }

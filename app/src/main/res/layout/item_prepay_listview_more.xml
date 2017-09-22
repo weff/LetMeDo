@@ -6,7 +6,6 @@
     android:background="@color/white">
     <TextView
         android:id="@+id/bill_order"
-        android:layout_below="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/length_60"
         android:gravity="center_vertical"
@@ -27,7 +26,7 @@
 
     <View
         android:id="@+id/view3"
-        android:layout_below="@+id/recycleview"
+        android:layout_below="@id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/length_1"
         android:background="@color/gray"/>
@@ -62,7 +61,7 @@
         android:textSize="@dimen/size_16"
         android:layout_width="@dimen/length_80"
         android:layout_height="@dimen/length_40"
-        android:text="@string/delete"/>
+        android:text="取消订单"/>
 
     <Button
         android:id="@+id/pay"

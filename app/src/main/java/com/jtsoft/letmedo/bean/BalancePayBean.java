@@ -7,10 +7,11 @@ package com.jtsoft.letmedo.bean;
 
 public class BalancePayBean {
 
+
     /**
      * code : 200
      * message : null
-     * timestamp : 1505803981638
+     * timestamp : 1505983006718
      * response : {}
      */
 

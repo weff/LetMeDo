@@ -1,7 +1,6 @@
 package com.jtsoft.letmedo.adapter;
 
 import android.content.Context;
-import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,11 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jtsoft.letmedo.R;
-import com.jtsoft.letmedo.bean.BillOrderBean;
 import com.jtsoft.letmedo.bean.DoneFragmentBean;
-import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,6 +95,8 @@ public class DoneFragmentAdapter extends BaseAdapter{
             } else {
                 oneHolder = (OneViewHolder) convertView.getTag();
             }
+            oneHolder.pay.setVisibility(View.INVISIBLE);
+            oneHolder.delete.setText("抢红包");
             oneHolder.bill.setText("订单号:" + orderListBean.getOrderCode());
             oneHolder.ordernum.setText("共 " + orderListBean.getOrderGoodsList().get(0).getNum() + " 件");
             oneHolder.subject.setText(orderListBean.getOrderGoodsList().get(0).getGoods().getName());
@@ -130,7 +128,8 @@ public class DoneFragmentAdapter extends BaseAdapter{
                 DoneFragmentRecycleAdapter adapter = new DoneFragmentRecycleAdapter(context, lists);
                 moreHolder.recyclerView.setAdapter(adapter);
             }
-
+            moreHolder.pay.setVisibility(View.INVISIBLE);
+            moreHolder.delete.setText("抢红包");
             moreHolder.bill.setText("订单号:" + orderListBean.getOrderCode());
             moreHolder.ordernum.setText("共 " + orderListBean.getOrderGoodsList().size() + " 件");
             moreHolder.orderprice.setText("商品总价: ￥" + orderListBean.getOrderPrice() + "");

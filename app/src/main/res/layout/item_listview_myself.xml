@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/length_120">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_10"
+        android:background="@color/gray_e"/>
     <TextView
         android:id="@+id/orders"
         android:layout_marginLeft="@dimen/length_10"
@@ -31,7 +35,7 @@
         android:textSize="@dimen/size_18"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/length_20"
-        android:layout_toLeftOf="@+id/totalprice"
+        android:layout_toLeftOf="@id/totalprice"
         android:text="订单金额： "/>
 
     <Button
@@ -39,7 +43,7 @@
         android:layout_width="@dimen/length_80"
         android:layout_height="@dimen/length_30"
         android:background="@drawable/shape_background_button"
-        android:text="@string/share"
+        android:text="抢红包"
         android:gravity="center"
         android:textColor="@color/black"
         android:layout_alignParentRight="true"

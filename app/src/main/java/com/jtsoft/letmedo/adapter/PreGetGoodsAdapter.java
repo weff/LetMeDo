@@ -1,7 +1,6 @@
 package com.jtsoft.letmedo.adapter;
 
 import android.content.Context;
-import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,20 +10,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.bean.PreGetGoodsBean;
-import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created by admin on 2017/9/2.
@@ -103,6 +95,8 @@ public class PreGetGoodsAdapter extends BaseAdapter{
             } else {
                 oneHolder = (OneViewHolder) convertView.getTag();
             }
+            oneHolder.delete.setText("确认收货");
+            oneHolder.pay.setText("抢红包");
             oneHolder.bill.setText("订单号:" + orderListBean.getOrderCode());
             oneHolder.ordernum.setText("共 " + orderListBean.getOrderGoodsList().get(0).getNum() + " 件");
             oneHolder.subject.setText(orderListBean.getOrderGoodsList().get(0).getGoods().getName());
@@ -134,6 +128,8 @@ public class PreGetGoodsAdapter extends BaseAdapter{
                 PreGetGoodsRecycleViewAdapter adapter = new PreGetGoodsRecycleViewAdapter(context, orderGoodsList);
                 moreHolder.recyclerView.setAdapter(adapter);
             }
+            moreHolder.delete.setText("确认收货");
+            moreHolder.pay.setText("抢红包");
             moreHolder.bill.setText(orderListBean.getOrderCode());
             moreHolder.ordernum.setText(orderListBean.getOrderGoodsList().size() + "");
             moreHolder.orderprice.setText(orderListBean.getOrderPrice() + "");
