@@ -48,8 +48,8 @@
 
         <ImageView
             android:id="@+id/write"
-            android:layout_width="@dimen/length_30"
-            android:layout_height="@dimen/length_30"
+            android:layout_width="@dimen/length_20"
+            android:layout_height="@dimen/length_20"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/length_10"

@@ -33,7 +33,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mLists.size();
     }
-    String [] tabTittle = {"待付款","待收货","已完成","门店自提"};
+    String [] tabTittle = {"待付款","收货待","已完成","门店自提"};
 
     @Override
     public CharSequence getPageTitle(int position) {

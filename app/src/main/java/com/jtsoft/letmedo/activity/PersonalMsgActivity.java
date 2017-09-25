@@ -360,6 +360,8 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
         //取消控件
         Cancel = (TextView) view.findViewById(R.id.cancel);
         popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        tvTakePhoto.setOnClickListener(this);
+        tvPickPhoto.setOnClickListener(this);
         //取消逻辑
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override

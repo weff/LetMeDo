@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/length_50"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_40"
+            android:textSize="@dimen/size_30"
             android:drawableLeft="@drawable/qian_white"/>
 
         <TextView

@@ -78,7 +78,6 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     private int cartId;
     private Request request;
 
-
     //视图初始化
     @Nullable
     @Override
@@ -199,7 +198,6 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         }
         Log.d("TAG", "totalCount2----------" + totalCount);
         EventBus.getDefault().post(new ShopCartCountBean(totalCount));
-
         result = String.format("%.2f", totalPrice);
         ShopCartsMoney.setText(result + "");
         if (totalPrice >= MONEY) {
@@ -219,8 +217,10 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
      * @param showCountView 用于展示变化后数量的View
      * @param isChecked     子元素选中与否
      */
-//    @Override
+    @Override
     public void doIncrease(int position, View showCountView, boolean isChecked) {
+        //待做先判断商品是否加入到服务器成功，如果成功再在页面的加号按钮数量加一
+        //TODO
         int currentCount = shoppingCartList.get(position).getNum();
         int goodsId = shoppingCartList.get(position).getGoodsId();
         currentCount++;
@@ -283,7 +283,6 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         adapter.notifyDataSetChanged();
         initShopCartsNum(strToken, goodsId, -1);
         statistics();
-
     }
 
     /**

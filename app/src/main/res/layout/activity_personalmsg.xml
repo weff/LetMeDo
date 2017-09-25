@@ -55,7 +55,7 @@
             android:layout_marginLeft="@dimen/length_30"
             android:background="@null"
             android:text="@string/octopus"
-            android:textSize="@dimen/size_18" />
+            android:textSize="@dimen/size_18"/>
     </LinearLayout>
 
     <View

@@ -33,6 +33,7 @@
         android:id="@+id/shop_goods"
         android:layout_below="@+id/title_bar"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/freedom"

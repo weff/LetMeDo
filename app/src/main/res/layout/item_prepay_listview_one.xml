@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/length_250"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white">
+    <RelativeLayout
+        android:id="@+id/re1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_250">
     <TextView
         android:id="@+id/bill_order"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/length_60"
+        android:layout_height="@dimen/length_40"
         android:layout_centerHorizontal="true"
         android:text="订单号：14552154511"
+        android:textColor="@color/black"
         android:padding="@dimen/length_10"/>
     <View
         android:id="@+id/view2"
         android:layout_below="@id/bill_order"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/length_1"
+        android:layout_height="@dimen/length_0.1"
         android:background="@color/gray"/>
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -45,7 +50,7 @@
         android:id="@+id/view3"
         android:layout_below="@id/linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/length_1"
+        android:layout_height="@dimen/length_0.1"
         android:background="@color/gray"/>
     <TextView
         android:id="@+id/price_goods"
@@ -95,6 +100,12 @@
         android:background="@drawable/shape_background_button"
         android:layout_marginBottom="@dimen/length_10"
         android:layout_marginRight="@dimen/length_10" />
-
+    </RelativeLayout>
+    <View
+        android:id="@+id/view4"
+        android:layout_below="@+id/re1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_0.5"
+        android:background="@color/black"/>
 
 </RelativeLayout>

@@ -120,6 +120,7 @@
                 android:id="@+id/countdesign"
                 android:layout_width="@dimen/length_20"
                 android:layout_height="@dimen/length_20"
+                android:visibility="invisible"
                 android:background="@drawable/shopcart_num">
                 <TextView
                     android:id="@+id/pay_count"

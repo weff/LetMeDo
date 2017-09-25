@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .add(R.id.mainfragement, categoryfragment)
                 .add(R.id.mainfragement, shopcartsfragment)
                 .add(R.id.mainfragement, myfragment)
-                .hide(firstpagefragment)
+                .show(firstpagefragment)
                 .hide(categoryfragment)
                 .hide(shopcartsfragment)
                 .hide(myfragment)

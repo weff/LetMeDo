@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/length_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/size_18"
+        android:textSize="@dimen/size_16"
         android:textColor="@color/black"
         android:text="订单号：149941650041521"/>
 
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/size_18"
+        android:textSize="@dimen/size_16"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/length_20"
         android:layout_toLeftOf="@id/totalprice"
