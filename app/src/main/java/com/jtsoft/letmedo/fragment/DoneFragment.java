@@ -1,14 +1,9 @@
 package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
@@ -36,7 +31,7 @@ import okhttp3.Response;
  * 已完成页面
  */
 
-public class DoneFragment extends Fragment {
+public class DoneFragment extends LazyLoadFragment {
 
     private Context context;
     private View view;
@@ -48,22 +43,38 @@ public class DoneFragment extends Fragment {
     private DoneFragmentAdapter adapter;
     private int totalPage;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        context = getActivity();
-        view = LayoutInflater.from(context).inflate(R.layout.fragment_done, container, false);
-        return view;
-    }
 
+
+    //    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        context = getActivity();
+//        view = LayoutInflater.from(context).inflate(R.layout.fragment_done, container, false);
+//        return view;
+//    }
+    //加载布局
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected int setContentView() {
+        context = getActivity();
+        return R.layout.fragment_done;
+    }
+    //加载数据
+    @Override
+    protected void lazyLoad() {
         //控件初始化
         initView();
         //数据初始化
         initData();
     }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        //控件初始化
+//        initView();
+//        //数据初始化
+//        initData();
+//    }
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
@@ -158,7 +169,7 @@ public class DoneFragment extends Fragment {
 
     //控件初始化
     private void initView() {
-        mListView = (ReFreshListView) view.findViewById(R.id.refreshlistview);
+        mListView = (ReFreshListView) getContentView().findViewById(R.id.refreshlistview);
         mListView.setOnFreshListener(new ReFreshListView.OnFreshListener() {
         @Override
         public void onDownPull() {
@@ -166,7 +177,7 @@ public class DoneFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mListView.onFinish();
+                        DoneFragment.this.mListView.onFinish();
                     }
                 }, 2000);
                 return;
@@ -178,7 +189,7 @@ public class DoneFragment extends Fragment {
         public void onLoadMore() {
             if(currentPage>=totalPage){
                 ToastUtil.showShort(context,"已经是最后的数据了");
-                mListView.onFinish();
+                DoneFragment.this.mListView.onFinish();
                 return;
             }
             initDatas();

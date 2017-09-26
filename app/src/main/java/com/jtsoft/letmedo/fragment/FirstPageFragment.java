@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jtsoft.letmedo.R;
+import com.jtsoft.letmedo.utils.Constant;
 
 
 /**
@@ -24,8 +24,6 @@ public class FirstPageFragment extends Fragment {
 
     private View view;
     private WebView mWebView;
-    private SwipeRefreshLayout swipeLayout;
-    String url = "http://openapi.ibiaoke.com:58080/los-web/index?clientType=android";
 
     //视图初始化
     @Nullable
@@ -42,14 +40,13 @@ public class FirstPageFragment extends Fragment {
         //webview控件
         mWebView = (WebView) view.findViewById(R.id.webview);
         WebSettings settings = mWebView.getSettings();
-        mWebView.loadUrl(url);
+        mWebView.loadUrl(Constant.FIRST_PAGE);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        //添加javascript的支持
-        settings.setJavaScriptEnabled(true);
-        settings.setSupportZoom(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setUseWideViewPort(true);//关键点
-        settings.setDisplayZoomControls(false);
+        settings.setDisplayZoomControls(true);
+        settings.setSupportZoom(true);
         settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
         settings.setAllowFileAccess(true); // 允许访问文件
         settings.setBuiltInZoomControls(true); // 设置显示缩放按钮

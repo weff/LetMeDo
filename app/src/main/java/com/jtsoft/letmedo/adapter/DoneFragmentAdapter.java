@@ -18,11 +18,14 @@ import com.jtsoft.letmedo.bean.DoneFragmentBean;
 
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 /**
  * Created by admin on 2017/9/5.
+ * 已完成订单的adapter
  */
 
-public class DoneFragmentAdapter extends BaseAdapter{
+public class DoneFragmentAdapter extends BaseAdapter {
     private Context context;
     private List<DoneFragmentBean.ResponseBean.OrderListBean> orderList;
 
@@ -97,6 +100,13 @@ public class DoneFragmentAdapter extends BaseAdapter{
             }
             oneHolder.pay.setVisibility(View.INVISIBLE);
             oneHolder.delete.setText("抢红包");
+            //红包分享
+            oneHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showShare();
+                }
+            });
             oneHolder.bill.setText("订单号:" + orderListBean.getOrderCode());
             oneHolder.ordernum.setText("共 " + orderListBean.getOrderGoodsList().get(0).getNum() + " 件");
             oneHolder.subject.setText(orderListBean.getOrderGoodsList().get(0).getGoods().getName());
@@ -130,12 +140,35 @@ public class DoneFragmentAdapter extends BaseAdapter{
             }
             moreHolder.pay.setVisibility(View.INVISIBLE);
             moreHolder.delete.setText("抢红包");
+            //红包分享
+            moreHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showShare();
+                }
+            });
             moreHolder.bill.setText("订单号:" + orderListBean.getOrderCode());
             moreHolder.ordernum.setText("共 " + orderListBean.getOrderGoodsList().size() + " 件");
             moreHolder.orderprice.setText("商品总价: ￥" + orderListBean.getOrderPrice() + "");
         }
 
         return convertView;
+    }
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        oks.disableSSOWhenAuthorize();
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle("标题");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+        // 启动分享GUI
+        oks.show(context);
+
     }
 
     //一种商品
@@ -145,8 +178,6 @@ public class DoneFragmentAdapter extends BaseAdapter{
         ImageView Img;
         TextView ordernum;
         Button delete, pay;
-
-
     }
 
     //两种以上商品

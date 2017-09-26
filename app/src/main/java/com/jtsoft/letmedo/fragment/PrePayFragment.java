@@ -2,14 +2,9 @@ package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
@@ -39,7 +34,7 @@ import okhttp3.Response;
  * 未付款页面
  */
 
-public class PrePayFragment extends Fragment implements PrePayFragmentAdapter.PayGoodsInterface{
+public class PrePayFragment extends LazyLoadFragment implements PrePayFragmentAdapter.PayGoodsInterface{
 
     private View view;
     private Context context;
@@ -52,13 +47,28 @@ public class PrePayFragment extends Fragment implements PrePayFragmentAdapter.Pa
     private String strToken;
 
 
-    //视图初始化
-    @Nullable
+//    //视图初始化
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        context = getActivity();
+//        view = LayoutInflater.from(context).inflate(R.layout.fragment_prepay, container, false);
+//        return view;
+//    }
+    //加载布局显示
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int setContentView() {
         context = getActivity();
-        view = LayoutInflater.from(context).inflate(R.layout.fragment_prepay, container, false);
-        return view;
+        return R.layout.fragment_prepay;
+    }
+
+    //加载数据
+    @Override
+    protected void lazyLoad() {
+        //控件初始化
+        initView();
+        //数据初始化
+        initData();
     }
 
 //
@@ -68,15 +78,15 @@ public class PrePayFragment extends Fragment implements PrePayFragmentAdapter.Pa
 //        super.onActivityResult(requestCode, resultCode, data);
 //    }
 
-    //控件、数据初始化
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //控件初始化
-        initView();
-        //数据初始化
-        initData();
-    }
+//    //控件、数据初始化
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        //控件初始化
+//        initView();
+//        //数据初始化
+//        initData();
+//    }
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
@@ -152,7 +162,7 @@ public class PrePayFragment extends Fragment implements PrePayFragmentAdapter.Pa
 
 
     private void initView() {
-        mListView = (ReFreshListView) view.findViewById(R.id.list);
+        mListView = (ReFreshListView) getContentView().findViewById(R.id.list);
         mListView.setOnFreshListener(new ReFreshListView.OnFreshListener() {
             @Override
             public void onDownPull() {

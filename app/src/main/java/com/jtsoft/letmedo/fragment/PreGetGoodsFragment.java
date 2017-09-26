@@ -1,14 +1,8 @@
 package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
@@ -36,7 +30,7 @@ import okhttp3.Response;
  * 待收货页面
  */
 
-public class PreGetGoodsFragment extends Fragment{
+public class PreGetGoodsFragment extends LazyLoadFragment{
 
     private View view;
     private Context context;
@@ -49,22 +43,37 @@ public class PreGetGoodsFragment extends Fragment{
     private int totalPage;
 
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        context = getActivity();
+//        view = LayoutInflater.from(context).inflate(R.layout.fragment_pregetgoods, container, false);
+//        return view;
+//    }
+
+    //加载布局
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int setContentView() {
         context = getActivity();
-        view = LayoutInflater.from(context).inflate(R.layout.fragment_pregetgoods, container, false);
-        return view;
+        return R.layout.fragment_pregetgoods;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void lazyLoad() {
         //控件初始化
         initView();
         //数据初始化
         initData();
     }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        //控件初始化
+//        initView();
+//        //数据初始化
+//        initData();
+//    }
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
@@ -145,7 +154,7 @@ public class PreGetGoodsFragment extends Fragment{
     }
 
     private void initView() {
-        mListView = (ReFreshListView) view.findViewById(R.id.list);
+        mListView = (ReFreshListView) getContentView().findViewById(R.id.list);
         mListView.setOnFreshListener(new ReFreshListView.OnFreshListener() {
             @Override
             public void onDownPull() {

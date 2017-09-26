@@ -4,13 +4,13 @@ android {
     signingConfigs {
         debug {
             keyPassword 'a8750861'
-            storeFile file('F:/appkestore/app.keystore')
+            storeFile file('vincent.keystore')
             storePassword 'a8750861'
             keyAlias 'android.keystore'
         }
         release {
             keyPassword 'a8750861'
-            storeFile file('F:/appkestore/app.keystore')
+            storeFile file('vincent.keystore')
             storePassword 'a8750861'
             keyAlias 'android.keystore'
         }
@@ -85,4 +85,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:support-v4:25.0.0'
     compile files('libs/AMap_Search_V5.3.1_20170817.jar')
+    compile files('libs/MobCommons-2017.0914.1125.jar')
 }

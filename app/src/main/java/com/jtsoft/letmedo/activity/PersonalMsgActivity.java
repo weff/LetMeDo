@@ -347,7 +347,6 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
 //        }
 //    };
 
-
     //弹出一个popupwindow，进行拍照或者从相册中选择图片
     private void showPopupWindow() {
         View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_photo, null, false);

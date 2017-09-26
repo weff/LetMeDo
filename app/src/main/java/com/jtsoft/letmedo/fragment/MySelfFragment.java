@@ -1,16 +1,9 @@
 package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
@@ -36,7 +29,7 @@ import okhttp3.Response;
  * Created by Dragon on 2017/7/17.
  * 自提订单页面
  */
-public class MySelfFragment extends Fragment {
+public class MySelfFragment extends LazyLoadFragment {
 
     private Context context;
     private View view;
@@ -49,27 +42,42 @@ public class MySelfFragment extends Fragment {
     private MyselfAdapter adapter;
     private int totalPage;
 
-    @Nullable
-    //试图初始化
+//    @Nullable
+//    //试图初始化
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        //获取上下文
+//        context = getActivity();
+//        //填充布局
+//        view = LayoutInflater.from(context).inflate(R.layout.fragment_myself, container, false);
+//        return view;
+//    }
+
+    //加载布局
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //获取上下文
+    protected int setContentView() {
         context = getActivity();
-        //填充布局
-        view = LayoutInflater.from(context).inflate(R.layout.fragment_myself, container, false);
-        return view;
+        return R.layout.fragment_myself;
     }
 
-
-    //控件 数据初始化
+    //加载数据
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void lazyLoad() {
         //控件初始化
         initView();
         //数据初始化
         initData();
     }
+
+//    //控件 数据初始化
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        //控件初始化
+//        initView();
+//        //数据初始化
+//        initData();
+//    }
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
@@ -148,7 +156,7 @@ public class MySelfFragment extends Fragment {
 
     private void initView() {
         //listview控件
-        listView = (ReFreshListView) view.findViewById(R.id.listview);
+        listView = (ReFreshListView) getContentView().findViewById(R.id.listview);
         listView.setOnFreshListener(new ReFreshListView.OnFreshListener() {
             @Override
             public void onDownPull() {
