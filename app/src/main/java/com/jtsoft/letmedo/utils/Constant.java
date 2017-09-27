@@ -11,6 +11,6 @@ public class Constant {
     //首页url
     public static String FIRST_PAGE = "http://test.rangwolai.com.cn/index-android.html";
     //分类url
-    public static String CATEGORY = "http://openapi.ibiaoke.com:58080/los-web/act315/thfx?clientType=android";
+    public static String CATEGORY = "http://test.rangwolai.com.cn/category.html?";
 
 }

@@ -39,6 +39,7 @@ public class CategoryFragment extends Fragment {
         //webview控件
         mWebView = (WebView) view.findViewById(R.id.webview);
         WebSettings settings = mWebView.getSettings();
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//设置不从缓存中加载网页
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
         settings.setJavaScriptCanOpenWindowsAutomatically(true);

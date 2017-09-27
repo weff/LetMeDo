@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.utils.Constant;
@@ -24,6 +26,9 @@ public class FirstPageFragment extends Fragment {
 
     private View view;
     private WebView mWebView;
+    private ImageView Back;
+    private TextView Tittle;
+    private TextView Edit;
 
     //视图初始化
     @Nullable
@@ -41,6 +46,7 @@ public class FirstPageFragment extends Fragment {
         mWebView = (WebView) view.findViewById(R.id.webview);
         WebSettings settings = mWebView.getSettings();
         mWebView.loadUrl(Constant.FIRST_PAGE);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//设置不从缓存中加载网页
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
