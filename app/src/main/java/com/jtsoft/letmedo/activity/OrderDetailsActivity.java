@@ -245,7 +245,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
 
                             //获取下单时间
                             date1 = new Date(createTime);
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mmss");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             String data = sdf.format(date1);
                             mTime.setText(data + "");
 

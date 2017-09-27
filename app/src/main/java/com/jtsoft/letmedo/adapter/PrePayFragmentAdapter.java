@@ -144,19 +144,20 @@ public class PrePayFragmentAdapter extends BaseAdapter {
             moreHolder.bill.setText("订单号:" + orderListBean.getOrderCode());
             moreHolder.ordernum.setText("共 " + orderListBean.getOrderGoodsList().size() + " 件");
             moreHolder.orderprice.setText("商品总价: ￥" + orderListBean.getOrderPrice() + "");
+            moreHolder.pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    payGoodsInterface.doPay(position);
+                }
+            });
+            moreHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    payGoodsInterface.doCancel(position);
+                }
+            });
         }
-        moreHolder.pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                payGoodsInterface.doPay(position);
-            }
-        });
-        moreHolder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                payGoodsInterface.doCancel(position);
-            }
-        });
+
 
         return convertView;
     }

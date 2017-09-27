@@ -77,6 +77,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     private String result;
     private int cartId;
     private Request request;
+    private int state;
 
     //视图初始化
     @Nullable
@@ -223,12 +224,18 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         //TODO
         int currentCount = shoppingCartList.get(position).getNum();
         int goodsId = shoppingCartList.get(position).getGoodsId();
-        currentCount++;
-        shoppingCartList.get(position).setNum(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-        adapter.notifyDataSetChanged();
         initShopCartsNum(strToken, goodsId, 1);
-        statistics();
+        if (state == 1) {
+            currentCount++;
+            shoppingCartList.get(position).setNum(currentCount);
+            ((TextView) showCountView).setText(currentCount + "");
+            adapter.notifyDataSetChanged();
+            statistics();
+        }else {
+            ToastUtil.showShort(context,"加入购物车失败");
+            return;
+        }
+
     }
 
     //购物车中对商品加减操作
@@ -240,7 +247,13 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtil.showShort(context,"网络异常");
+                    return;
+                }
+            });
             }
 
             @Override
@@ -249,6 +262,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                 Gson gson = new Gson();
                 final ShoppingCartCountBean shoppingCartCountBean = gson.fromJson(strJson, ShoppingCartCountBean.class);
                 if (shoppingCartCountBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    state = 1;
                     return;
                 } else {
                     getActivity().runOnUiThread(new Runnable() {
