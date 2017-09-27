@@ -20,12 +20,24 @@
             android:src="@drawable/shopcarts_null"
             android:layout_centerInParent="true"/>
 
-        <ImageView
+        <!--<ImageView-->
+            <!--android:id="@+id/go_mainpage"-->
+            <!--android:layout_width="@dimen/length_100"-->
+            <!--android:layout_height="@dimen/length_50"-->
+            <!--android:src="@drawable/shopcart_button"-->
+            <!--android:layout_below="@+id/shopcart_null"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginTop="@dimen/length_20"/>-->
+        <Button
             android:id="@+id/go_mainpage"
-            android:layout_width="@dimen/length_100"
+            android:layout_width="@dimen/length_150"
             android:layout_height="@dimen/length_50"
-            android:src="@drawable/shopcart_button"
-            android:layout_below="@+id/shopcart_null"
+            android:background="@drawable/shape_background_gomain"
+            android:text="去逛逛"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:textSize="@dimen/size_16"
+            android:layout_below="@id/shopcart_null"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/length_20"/>
     </RelativeLayout>

@@ -70,7 +70,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     public int totalCount;// 购买的商品总数量
     private RelativeLayout ShopNull;
     private RelativeLayout GoodsShop;
-    private ImageView goMainPage;
+    private Button goMainPage;
     private double MONEY = 15.0;
     private String strToken;
     private List<ShoppingCartBean.ResponseBean.ShoppingCartListBean> shoppingCartList;
@@ -390,7 +390,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         //购物车不为空时的布局控件
         GoodsShop = (RelativeLayout) view.findViewById(R.id.shop_goods);
         //去逛逛控件
-        goMainPage = (ImageView) view.findViewById(R.id.go_mainpage);
+        goMainPage = (Button) view.findViewById(R.id.go_mainpage);
         //购物车为空时的布局控件
         ShopNull = (RelativeLayout) view.findViewById(R.id.null_shopcarts);
         //返回按键控件
