@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.utils.Constant;
@@ -26,9 +24,6 @@ public class FirstPageFragment extends Fragment {
 
     private View view;
     private WebView mWebView;
-    private ImageView Back;
-    private TextView Tittle;
-    private TextView Edit;
 
     //视图初始化
     @Nullable

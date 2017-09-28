@@ -21,7 +21,6 @@ import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
 import com.jtsoft.letmedo.utils.ValidateUtil;
-import com.jtsoft.letmedo.webinterface.NetWorkInterface;
 
 import java.io.IOException;
 

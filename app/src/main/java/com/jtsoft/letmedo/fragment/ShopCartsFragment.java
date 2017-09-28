@@ -83,7 +83,6 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.e("TAG", "onCreateView");
         context = getActivity();
         strToken = SharedpreferencesManager.getToken();
         view = LayoutInflater.from(context).inflate(R.layout.fragment_shopcarts, null, false);
@@ -95,7 +94,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.e("TAG", "onActivityCreated");
-//        //控件初始化
+        //控件初始化
         initView();
 
     }
@@ -268,7 +267,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(context, (String) shoppingCartCountBean.getMessage());
+//                            ToastUtil.showShort(context, (String) shoppingCartCountBean.getMessage());
                             return;
                         }
                     });
@@ -329,7 +328,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求错误");
+                        ToastUtil.showShort(context, "网络异常");
                         return;
                     }
                 });
@@ -354,7 +353,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(context, (String) shoppingCartBean.getMessage());
+//                            ToastUtil.showShort(context, (String) shoppingCartBean.getMessage());
                             return;
                         }
                     });
@@ -527,7 +526,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求错误");
+                        ToastUtil.showShort(context, "网络异常");
                         return;
                     }
                 });
@@ -544,7 +543,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(context, (String) deleteShopCartBean.getMessage());
+//                            ToastUtil.showShort(context, (String) deleteShopCartBean.getMessage());
                             return;
                         }
                     });

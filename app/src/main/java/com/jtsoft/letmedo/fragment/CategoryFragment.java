@@ -1,5 +1,6 @@
 package com.jtsoft.letmedo. fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.utils.Constant;
@@ -24,6 +26,7 @@ public class CategoryFragment extends Fragment {
     private View view;
     private WebView mWebView;
 
+    @SuppressLint("JavaScriptInterface")
     //视图初始化
     @Nullable
     @Override
@@ -50,6 +53,18 @@ public class CategoryFragment extends Fragment {
         settings.setAllowFileAccess(true); // 允许访问文件
         settings.setBuiltInZoomControls(true); // 设置显示缩放按钮
         settings.setLoadWithOverviewMode(true);
+        //取消滚动条
+        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        //触摸焦点起作用
+        mWebView.requestFocus();
+        //点击链接继续在当前browser中相应
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         //webview进行加载url
         mWebView.loadUrl(Constant.CATEGORY);
     }

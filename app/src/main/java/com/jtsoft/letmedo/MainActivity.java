@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        intent = getIntent();
-        int myfragment = intent.getIntExtra("myfragment", -1);
-        if (myfragment == 4) {
-            setMyfragment();
-        } else if (myfragment == 3) {
-            setShopCartFragment();
-        }
+            intent = getIntent();
+            int myfragment = intent.getIntExtra("myfragment", -1);
+            if (myfragment == 4) {
+                setMyfragment();
+            } else if (myfragment == 3) {
+                setShopCartFragment();
+            }
     }
 
     /**
@@ -81,15 +81,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(ShopCartCountBean bean) {
-        if (bean != null) {
-            if (bean.getNum() == 0) {
-                Design.setVisibility(View.INVISIBLE);
-            }else {
-                Design.setVisibility(View.VISIBLE);
-                mPayCount.setText("" + bean.getNum());
-            }
+            if (bean != null) {
+                if (bean.getNum() == 0) {
+                    Design.setVisibility(View.INVISIBLE);
+                }else {
+                    Design.setVisibility(View.VISIBLE);
+                    mPayCount.setText("" + bean.getNum());
+                }
 
-        }
+            }
     }
 
     private void initData() {

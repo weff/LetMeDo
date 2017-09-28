@@ -62,7 +62,7 @@
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/length_35"
+            android:layout_height="@dimen/length_50"
             android:paddingLeft="@dimen/length_15"
             android:paddingRight="@dimen/length_15"
             android:layout_marginTop="@dimen/length_70"

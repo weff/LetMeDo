@@ -61,7 +61,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         //判断是否是第一次进入
         final SharedPreferences sharedPreferences = getSharedPreferences("is_first_in_data", MODE_PRIVATE);
         isFirstIn = sharedPreferences.getBoolean("isFirstIn", true);
@@ -118,8 +117,8 @@ public class SplashActivity extends AppCompatActivity {
                 hexString.append(":");
             }
             String result = hexString.toString();
-            Log.e("TAG","result====>" + result);
-            return result.substring(0, result.length()-1);
+            Log.e("TAG", "result====>" + result);
+            return result.substring(0, result.length() - 1);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -129,7 +128,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-/////1111111111
+    /////1111111111
     private CircleProgressbar.OnCountdownProgressListener progressListener = new CircleProgressbar.OnCountdownProgressListener() {
         @Override
         public void onProgress(int what, int progress) {

@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,14 +21,16 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.MainActivity;
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.adapter.OrderDetailsAdapter;
+import com.jtsoft.letmedo.bean.AlipayBean;
 import com.jtsoft.letmedo.bean.BalancePayBean;
 import com.jtsoft.letmedo.bean.CancelOrderBean;
-import com.jtsoft.letmedo.bean.JsonBeanAliPayText;
 import com.jtsoft.letmedo.bean.JsonBeanUserRegister;
 import com.jtsoft.letmedo.bean.OrderDetailsBean;
 import com.jtsoft.letmedo.custom.ListViewForScrollView;
@@ -33,6 +38,7 @@ import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
+import com.jtsoft.letmedo.utils.PayResult;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -41,6 +47,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,7 +61,11 @@ import okhttp3.Response;
  */
 
 public class OrderDetailsActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final java.lang.String APP_ID = "wxa6e222a74f4e465b";
+    //微信APP_ID
+    private static String WXAPP_ID = "wxa6e222a74f4e465b";
+    //支付宝APP_ID
+    private static String AliAPP_ID = "2017091808799957";
+
     private ImageView Back;
     private TextView Tittle;
     private TextView Edit;
@@ -110,16 +121,39 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     private RelativeLayout mWXRelay;
     private RelativeLayout mAliRelay;
     private RelativeLayout mPayRelay;
+    private static final int SDK_PAY_FLAG = 1;
     //计时器
     private TimeCount timer;
     private Intent intent;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orderdetails);
-        mIwxapi = WXAPIFactory.createWXAPI(this, APP_ID, false);
-        mIwxapi.registerApp(APP_ID);
+        mIwxapi = WXAPIFactory.createWXAPI(this, WXAPP_ID, false);
+        mIwxapi.registerApp(WXAPP_ID);
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case SDK_PAY_FLAG:
+                        PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                        String resultInfo = payResult.getResult();
+                        String resultStatus = payResult.getResultStatus();
+                        Log.e("TAG","resultStatus :" + resultStatus);
+                        if (TextUtils.equals(resultStatus, "9000")) {
+                            // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                            Toast.makeText(OrderDetailsActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                            Toast.makeText(OrderDetailsActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
+            }
+        };
         //控件初始化
         initView();
         //数据初始化
@@ -503,7 +537,6 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         });
 
         //确认支付按钮
-        final JsonBeanAliPayText jsonBeanAliPayText = new JsonBeanAliPayText();//支付接口bean类
         mConfrimPay = (Button) view.findViewById(R.id.confirm_pay);
         mConfrimPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -536,7 +569,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                     mBalanceCheckBox.setChecked(false);
                     mRelay.setVisibility(View.GONE);
                     //支付宝支付逻辑
-//                    AliPay(jsonBeanAliPayText.getSignOrderStr());
+                    AliPay(orderId,5,strToken);
                 }
             }
         });
@@ -550,6 +583,37 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         });
 
     }
+    //支付宝支付逻辑
+    private void AliPay(int orderId, int i, String strToken) {
+        final Request request = new Request.Builder()
+                .url(Constant.CONSTANT + "/payOrder.do?orderId=" + orderId + "&payType=" + i + "&token=" + strToken)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String strJson = response.body().string();
+                Gson gson = new Gson();
+                AlipayBean alipayBean = gson.fromJson(strJson, AlipayBean.class);
+                if (alipayBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    String orderStr = alipayBean.getResponse().getOrderStr();
+                    Log.e("TAG","orderStr===" + orderStr);
+                            PayTask alipay = new PayTask(OrderDetailsActivity.this);
+                            Map<String, String> result = alipay.payV2(orderStr, true);
+                            Message msg = Message.obtain();
+                            msg.what = SDK_PAY_FLAG;
+                            msg.obj = result;
+                            mHandler.sendMessage(msg);
+                }
+            }
+        });
+    }
+
     //余额支付逻辑
     private void BalancePay(String strToken, int orderId, int i, String s) {
         Log.e("TAG","orderId==" + orderId + ":i==" + i + ":s==" + s);
@@ -596,12 +660,6 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         });
-    }
-
-
-    //支付宝支付逻辑
-    private void AliPay(String payInfo) {
-
     }
 
     //微信支付逻辑

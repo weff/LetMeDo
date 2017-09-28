@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +88,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context = getActivity();
+        strToken = SharedpreferencesManager.getToken();
         view = LayoutInflater.from(context).inflate(R.layout.fragment_my, null, false);
         return view;
     }
@@ -141,8 +141,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-        strToken = SharedpreferencesManager.getToken();
-        Log.e("TAG", "Account=======>" + strToken);
         OrderBill.setOnClickListener(this);
         PrePay.setOnClickListener(this);
         PreConfirm.setOnClickListener(this);
@@ -154,7 +152,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         Acount.setOnClickListener(this);
 
         //获取用户个人信息
-        getAccountMsg();
+        getAccountMsg(strToken);
         //获取优惠券数量
         getCouponCount(strToken);
         //获取待收货，待付款等商品数量
@@ -172,7 +170,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求异常");
+                        ToastUtil.showShort(context, "网络异常");
                         return;
                     }
                 });
@@ -217,7 +215,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(context, (String) getGoodsNumBean.getMessage());
+//                            ToastUtil.showShort(context, (String) getGoodsNumBean.getMessage());
                             return;
                         }
                     });
@@ -237,7 +235,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求异常");
+                        ToastUtil.showShort(context, "网络异常");
                         return;
                     }
                 });
@@ -260,7 +258,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(context, (String) getCouponCount.getMessage());
+//                            ToastUtil.showShort(context, (String) getCouponCount.getMessage());
                             return;
                         }
                     });
@@ -269,7 +267,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void getAccountMsg() {
+    private void getAccountMsg(String strToken) {
         request = new Request.Builder()
                 .url(Constant.CONSTANT + "/getCustomerInfo.do?token=" + strToken)
                 .build();
@@ -280,7 +278,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求错误");
+                        ToastUtil.showShort(context, "网络异常");
                         return;
                     }
                 });
@@ -302,7 +300,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(context, (String) personalMsgBean.getMessage());
+//                            ToastUtil.showShort(context, (String) personalMsgBean.getMessage());
                             return;
                         }
                     });

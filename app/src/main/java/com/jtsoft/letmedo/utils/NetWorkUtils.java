@@ -1,12 +1,5 @@
 package com.jtsoft.letmedo.utils;
 
-import android.os.Message;
-
-import com.google.gson.Gson;
-import com.jtsoft.letmedo.webinterface.Listener;
-
-import okhttp3.OkHttpClient;
-
 /**
  * Created by Administrator on 2017/6/22.
  */
@@ -39,20 +32,5 @@ public class NetWorkUtils {
     public final static int EDIT = 4015;
     public final static int USECOUPON = 11;
     public final static int USECOUPON_RESULT = 12;
-    //注册获取的优惠券
-    public final static int REGISTER_COUPON = 100;
-    //领取的优惠券
-    public final static int GET_COUPON = 101;
-    //我的订单type
-    public final static int TYPE0 = 0;
-    public final static int TYPE1 = 1;
-    public final static int TYPE2 = 2;
-    public final static int TYPE3 = 3;
-    public final static int TYPE4 = 4;
-    private Listener listener = null;
-    private OkHttpClient okHttpClient = new OkHttpClient();
-    private String strMessage = "数据请求失败，请检查网络！";
-    private Gson gson = new Gson();
-    private Message msg = Message.obtain();
 
 }

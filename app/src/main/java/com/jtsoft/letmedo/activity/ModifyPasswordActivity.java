@@ -1,6 +1,5 @@
 package com.jtsoft.letmedo.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +13,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
-import com.jtsoft.letmedo.bean.JsonBeanForgetPasswordCode;
 import com.jtsoft.letmedo.bean.ModifyPasswordBean;
-import com.jtsoft.letmedo.bean.ModifyPersonalMsgBean;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
-import com.jtsoft.letmedo.webinterface.NetWorkInterface;
 
 import java.io.IOException;
 

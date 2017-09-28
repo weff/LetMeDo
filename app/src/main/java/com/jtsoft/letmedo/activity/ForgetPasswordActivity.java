@@ -14,9 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jtsoft.letmedo.MainActivity;
 import com.jtsoft.letmedo.R;
-import com.jtsoft.letmedo.bean.JsonBeanLoginState;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.bean.JsonBeanForgetPassword;
 import com.jtsoft.letmedo.bean.JsonBeanForgetPasswordCode;
@@ -24,7 +22,6 @@ import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
 import com.jtsoft.letmedo.utils.ValidateUtil;
-import com.jtsoft.letmedo.webinterface.NetWorkInterface;
 
 import java.io.IOException;
 
