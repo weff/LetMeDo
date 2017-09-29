@@ -78,6 +78,8 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     private int cartId;
     private Request request;
     private int state;
+    private ShoppingCartBean.ResponseBean.ShoppingCartListBean shoppingCartListBean;
+    private View numView;
 
     //视图初始化
     @Nullable
@@ -220,25 +222,14 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     @Override
     public void doIncrease(int position, View showCountView, boolean isChecked) {
         //待做先判断商品是否加入到服务器成功，如果成功再在页面的加号按钮数量加一
-        //TODO
-        int currentCount = shoppingCartList.get(position).getNum();
-        int goodsId = shoppingCartList.get(position).getGoodsId();
+        shoppingCartListBean = shoppingCartList.get(position);
+        int goodsId = shoppingCartListBean.getGoodsId();
+        numView = showCountView;
         initShopCartsNum(strToken, goodsId, 1);
-        if (state == 1) {
-            currentCount++;
-            shoppingCartList.get(position).setNum(currentCount);
-            ((TextView) showCountView).setText(currentCount + "");
-            adapter.notifyDataSetChanged();
-            statistics();
-        }else {
-            ToastUtil.showShort(context,"加入购物车失败");
-            return;
-        }
-
     }
 
-    //购物车中对商品加减操作
-    private void initShopCartsNum(String strToken, int goodsId, int currentCount) {
+    //购物车中对商品加操作
+    private void initShopCartsNum(String strToken, int goodsId, final int currentCount) {
         Request request = new Request.Builder()
                 .url(Constant.CONSTANT + "/saveShoppingCart.do?token=" + strToken + "&goodsId=" + goodsId + "&num=" + currentCount)
                 .build();
@@ -246,13 +237,13 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ToastUtil.showShort(context,"网络异常");
-                    return;
-                }
-            });
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShort(context, "网络异常");
+                        return;
+                    }
+                });
             }
 
             @Override
@@ -261,13 +252,21 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                 Gson gson = new Gson();
                 final ShoppingCartCountBean shoppingCartCountBean = gson.fromJson(strJson, ShoppingCartCountBean.class);
                 if (shoppingCartCountBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
-                    state = 1;
-                    return;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentCount = shoppingCartListBean.getNum();
+                            currentCount++;
+                            shoppingCartListBean.setNum(currentCount);
+                            ((TextView) numView).setText(currentCount + "");
+                            adapter.notifyDataSetChanged();
+                            statistics();
+                        }
+                    });
                 } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            ToastUtil.showShort(context, (String) shoppingCartCountBean.getMessage());
                             return;
                         }
                     });
@@ -285,17 +284,60 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
      */
     @Override
     public void doDecrease(int position, View showCountView, boolean isChecked) {
-        int currentCount = shoppingCartList.get(position).getNum();
-        int goodsId = shoppingCartList.get(position).getGoodsId();
-        if (currentCount <= 1) {
-            return;
-        }
-        currentCount--;
-        shoppingCartList.get(position).setNum(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-        adapter.notifyDataSetChanged();
-        initShopCartsNum(strToken, goodsId, -1);
-        statistics();
+        shoppingCartListBean = shoppingCartList.get(position);
+        int goodsId = shoppingCartListBean.getGoodsId();
+        numView = showCountView;
+        initShopCartsCount(strToken, goodsId, -1);
+    }
+
+    //对购物车商品减的操作
+    private void initShopCartsCount(String strToken, int goodsId, int i) {
+        Request request = new Request.Builder()
+                .url(Constant.CONSTANT + "/saveShoppingCart.do?token=" + strToken + "&goodsId=" + goodsId + "&num=" + i)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShort(context, "网络异常");
+                        return;
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String strJson = response.body().string();
+                Gson gson = new Gson();
+                final ShoppingCartCountBean shoppingCartCountBean = gson.fromJson(strJson, ShoppingCartCountBean.class);
+                if (shoppingCartCountBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentCount = shoppingCartListBean.getNum();
+                            if (currentCount <= 1) {
+                                return;
+                            }
+                            currentCount--;
+                            shoppingCartListBean.setNum(currentCount);
+                            ((TextView) numView).setText(currentCount + "");
+                            adapter.notifyDataSetChanged();
+                            statistics();
+                        }
+                    });
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            return;
+                        }
+                    });
+                }
+            }
+        });
     }
 
     /**
@@ -448,7 +490,13 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
                         return;
                     } else {
                         //如果有商品被选中，跳到订单
-                        skipbill();
+                        if (totalPrice < 15.0) {
+                            ToastUtil.showShort(context, "所选商品未满15元，无法进行配送");
+                            return;
+                        } else {
+                            skipbill();
+                        }
+
                     }
                 }
                 break;
