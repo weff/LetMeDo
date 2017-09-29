@@ -2,6 +2,8 @@ package com.jtsoft.letmedo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -90,7 +92,6 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
     private TextView CouponPrice;
     private int deliveryPrice;
     private String shopCartId;
-    private int sendPrice;
     private double TotalGoodsPrice;
     private int CartId;
     private int goodsId;
@@ -105,6 +106,13 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybill);
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 
         //控件初始化
         initView();
@@ -172,7 +180,7 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
 
     private void GetPayMoney() {
         //实际付款总金额
-        double mTotalPrice = TotalGoodsPrice + sendPrice - couponPrice;
+        double mTotalPrice = TotalGoodsPrice + deliveryPrice - couponPrice;
         result = String.format("%.2f", mTotalPrice);
         mPayMoney.setText("" + result);
     }
