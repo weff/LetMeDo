@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.jtsoft.letmedo.MainActivity;
 import com.jtsoft.letmedo.R;
@@ -48,18 +49,16 @@ public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";
 
     private CircleProgressbar mCircleProgressbar;
-    private static final int REQUEST_READ_PHONE_STATE = 1;
 
     boolean isFirstIn = false;
     private boolean isClick = false;
-    private String model;
-    private String deviceId;
     private ProgressDialog pd;
     private String ANDROID = "ANDROID";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         //判断是否是第一次进入
         final SharedPreferences sharedPreferences = getSharedPreferences("is_first_in_data", MODE_PRIVATE);

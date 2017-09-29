@@ -173,7 +173,8 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
     private void GetPayMoney() {
         //实际付款总金额
         double mTotalPrice = TotalGoodsPrice + sendPrice - couponPrice;
-        mPayMoney.setText("" + mTotalPrice);
+        result = String.format("%.2f", mTotalPrice);
+        mPayMoney.setText("" + result);
     }
 
     private void initView() {
@@ -469,10 +470,8 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
                             contentPhone.setText(contentphone);
                             contentAddress.setText(provinceName + cityName + districtName + contentaddress);
                             distance.setText(resultDistance + "公里");
-                            //配送费
-                            sendPrice = deliveryPrice / 1000;
                             //展示配送费控件
-                            distanceMoney.setText(sendPrice + "");
+                            distanceMoney.setText(deliveryPrice + "");
                             //商铺名
                             mShopName.setText(shopName);
 

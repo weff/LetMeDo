@@ -63,9 +63,6 @@ import okhttp3.Response;
 public class OrderDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     //微信APP_ID
     private static String WXAPP_ID = "wxa6e222a74f4e465b";
-    //支付宝APP_ID
-    private static String AliAPP_ID = "2017091808799957";
-
     private ImageView Back;
     private TextView Tittle;
     private TextView Edit;
@@ -186,7 +183,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(OrderDetailsActivity.this, "网络请求异常");
+                        ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
                         return;
                     }
                 });
@@ -218,7 +215,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(OrderDetailsActivity.this, "网络请求异常");
+                        ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
                         return;
                     }
                 });
@@ -455,9 +452,16 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 mWXCheckBox.isChecked();
+                mWXCheckBox.setVisibility(View.VISIBLE);
                 mWXCheckBox.setChecked(true);
                 mAliPayCheckBox.setChecked(false);
+                mAliPayCheckBox.setPressed(false);
+                mAliPayCheckBox.setFocusable(false);
+                mAliPayCheckBox.setVisibility(View.INVISIBLE);
                 mBalanceCheckBox.setChecked(false);
+                mBalanceCheckBox.setPressed(false);
+                mBalanceCheckBox.setFocusable(false);
+                mBalanceCheckBox.setVisibility(View.INVISIBLE);
                 mRelay.setVisibility(View.GONE);
             }
         });
@@ -466,9 +470,16 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 mAliPayCheckBox.isChecked();
+                mAliPayCheckBox.setVisibility(View.VISIBLE);
                 mAliPayCheckBox.setChecked(true);
                 mWXCheckBox.setChecked(false);
+                mWXCheckBox.setPressed(false);
+                mWXCheckBox.setFocusable(false);
+                mWXCheckBox.setVisibility(View.INVISIBLE);
                 mBalanceCheckBox.setChecked(false);
+                mBalanceCheckBox.setPressed(false);
+                mBalanceCheckBox.setFocusable(false);
+                mBalanceCheckBox.setVisibility(View.INVISIBLE);
                 mRelay.setVisibility(View.GONE);
             }
         });
@@ -477,9 +488,16 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 mBalanceCheckBox.isChecked();
+                mBalanceCheckBox.setVisibility(View.VISIBLE);
                 mBalanceCheckBox.setChecked(true);
                 mAliPayCheckBox.setChecked(false);
+                mAliPayCheckBox.setPressed(false);
+                mAliPayCheckBox.setFocusable(false);
+                mAliPayCheckBox.setVisibility(View.INVISIBLE);
                 mWXCheckBox.setChecked(false);
+                mWXCheckBox.setPressed(false);
+                mWXCheckBox.setFocusable(false);
+                mWXCheckBox.setVisibility(View.INVISIBLE);
                 mRelay.setVisibility(View.VISIBLE);
             }
         });
@@ -502,7 +520,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ToastUtil.showShort(OrderDetailsActivity.this, "网络请求异常");
+                                ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
                                 return;
                             }
                         });
@@ -629,7 +647,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(OrderDetailsActivity.this, "网络请求异常");
+                        ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
                         return;
                     }
                 });

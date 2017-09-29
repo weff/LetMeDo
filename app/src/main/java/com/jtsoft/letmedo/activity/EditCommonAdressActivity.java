@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,7 +27,6 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.adapter.CityAdapter;
-import com.jtsoft.letmedo.adapter.DialogListAdapter;
 import com.jtsoft.letmedo.adapter.DistrictAdapter;
 import com.jtsoft.letmedo.adapter.ProvinceAdapter;
 import com.jtsoft.letmedo.bean.CommonAdressBean;
@@ -42,7 +40,6 @@ import com.jtsoft.letmedo.utils.NetWorkUtils;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,12 +89,22 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
     private CommonAdressBean.ResponseBean.ProvincesBean.CitiesBean citiesBean;
     private List<CommonAdressBean.ResponseBean.ProvincesBean.CitiesBean> citiesLists;
     private List<CommonAdressBean.ResponseBean.ProvincesBean.CitiesBean.DistrictsBean> districtsLists;
+    private String province;
+    private String city;
+    private String district;
+    private String detailAddress;
+    private int commonProId;
+    private int commonCityId;
+    private int commonDisId;
+    private double etLatitude;
+    private double etLongitude;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editcommonadress);
         geocodeSearch = new GeocodeSearch(this);
+        geocodeSearch.setOnGeocodeSearchListener(this);
         //控件初始化
         initView();
     }
@@ -107,8 +114,17 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
         initAddressList();
         //从地址列表传过来的值
         intent = getIntent();
-        Log.e("TAG", "addressId===" + addressId);
         addressId = intent.getIntExtra("addressId", -1);
+        Log.e("TAG", "addressId===" + addressId);
+        province = intent.getStringExtra("province");
+        city = intent.getStringExtra("city");
+        district = intent.getStringExtra("district");
+        etLatitude = intent.getDoubleExtra("latitude", -1);
+        etLongitude = intent.getDoubleExtra("longitude", -1);
+        detailAddress = intent.getStringExtra("detailAddress");
+        commonProId = intent.getIntExtra("provinceId", -1);
+        commonCityId = intent.getIntExtra("cityId", -1);
+        commonDisId = intent.getIntExtra("districtId", -1);
         //从地址列表返回到编辑地址的接口
         initGetAddress(addressId);
         Back.setOnClickListener(this);
@@ -274,6 +290,9 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
             case R.id.province:
                 //点击省区控件，展示省份
                 showProvincePopupWindow();
+                tvCity.setText("选择城市");
+                tvDistrict.setText("选择地区");
+                tvAddress.setText("点击选择");
                 break;
             case R.id.city:
                 //点击市区控件，展示市区
@@ -281,13 +300,15 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                     ToastUtil.showShort(this, "请先选择省份");
                     return;
                 } else {
-                    for (int i = 0; i <provinces.size() ; i++) {
+                    for (int i = 0; i < provinces.size(); i++) {
                         if (tvProvince.getText().toString().equals(provinces.get(i).getProvName())) {
                             citiesLists = provinces.get(i).getCities();
                             showCityPopupWindow();
                         }
                         break;
                     }
+                    tvDistrict.setText("选择地区");
+                    tvAddress.setText("点击选择");
 
                 }
                 break;
@@ -297,20 +318,19 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                     ToastUtil.showShort(this, "请先选择市区");
                     return;
                 } else {
-                    for (int i = 0; i <provinces.size() ; i++) {
+                    for (int i = 0; i < provinces.size(); i++) {
                         if (tvProvince.getText().toString().equals(provinces.get(i).getProvName())) {
                             citiesLists = provinces.get(i).getCities();
-                            for (int j = 0; j <citiesLists.size() ; j++) {
+                            for (int j = 0; j < citiesLists.size(); j++) {
                                 if (tvCity.getText().toString().equals(citiesLists.get(j).getCityName())) {
-                                  districtsLists = citiesLists.get(j).getDistricts();
+                                    districtsLists = citiesLists.get(j).getDistricts();
                                     showDistrictPopupWindow();
                                 }
                             }
-
                         }
                         break;
                     }
-
+                    tvAddress.setText("点击选择");
                 }
                 break;
             case R.id.address:
@@ -326,68 +346,101 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 break;
             case R.id.saveAdress:
                 //判断姓名、电话以及地址是否为空
-                if (etName.getText().toString().equals("")) {
+                if (etName.getText().toString().equals("") || etName.getText().toString().equals("请输入姓名")) {
                     Toast.makeText(this, R.string.notnulluser, Toast.LENGTH_SHORT).show();
                     return;
-                } else if (etPhone.getText().toString().equals("")) {
+                } else if (etPhone.getText().toString().equals("") || etPhone.getText().toString().equals("请输入电话号码")) {
                     Toast.makeText(this, R.string.supplytelephone, Toast.LENGTH_SHORT).show();
                     return;
-                } else if (tvProvince.getText().toString().equals("")) {
+                } else if (tvProvince.getText().toString().equals("") || tvProvince.getText().toString().equals("选择省份")) {
                     Toast.makeText(this, R.string.selectprovince, Toast.LENGTH_SHORT).show();
                     return;
-                } else if (tvCity.getText().toString().equals("")) {
+                } else if (tvCity.getText().toString().equals("") || tvCity.getText().toString().equals("选择城市")) {
                     Toast.makeText(this, R.string.selectcity, Toast.LENGTH_SHORT).show();
                     return;
-                } else if (tvDistrict.getText().toString().equals("")) {
+                } else if (tvDistrict.getText().toString().equals("") || tvDistrict.getText().toString().equals("选择地区")) {
                     Toast.makeText(this, R.string.selectdistrict, Toast.LENGTH_SHORT).show();
                     return;
-                } else if (tvAddress.getText().toString().equals("")) {
+                } else if (tvAddress.getText().toString().equals("") || tvAddress.getText().toString().equals("点击选择")) {
                     Toast.makeText(this, R.string.supplyaddress, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                getLatlon(tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + tvAddress.getText().toString());
-                request = new Request.Builder()
-                        .url(Constant.CONSTANT + "/updateOrderAddress.do?token=" + strToken + "&addressId=" + addressId + "&provinceId=" + provinceId
-                                + "&cityId=" + cityId + "&districtId=" + districtId + "&detailAddress=" + tvAddress.getText().toString() + "&longitude=" + longitude + "&latitude="
-                                + latitude + "&contactName=" + etName.getText().toString() + "&contactPhone=" + etPhone.getText().toString())
-                        .build();
-                client = new OkHttpClient();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ToastUtil.showShort(EditCommonAdressActivity.this, "网络请求异常");
-                                return;
-                            }
-                        });
-                    }
+                //如果地址没有更改
+                if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) &&
+                        tvAddress.getText().toString().equals(detailAddress)) {
+                    inspone(strToken, addressId, commonProId, commonCityId, commonDisId, detailAddress, etLongitude, etLatitude, etName.getText().toString(), etPhone.getText().toString());
+                    Log.e("TAG", "latitude:" + etLatitude + "::longitude:" + etLongitude);
+                } else {
+                    geocodeSearch.setOnGeocodeSearchListener(this);
+                    getLatlon(tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + tvAddress.getText().toString());
+//                    //地址更改
+//                    if (!tvProvince.getText().toString().equals(province) && !tvCity.getText().toString().equals(city) && !tvDistrict.getText().toString().equals(district)) {
+//                        inspone(strToken, addressId, provinceId, cityId, districtId, tvAddress.getText().toString(),longitude , latitude, etName.getText().toString(), etPhone.getText().toString());
+//                        Log.e("TAG", "etlatitude1:" + latitude + "::etlongitude1:" + longitude);
+//                        Log.e("TAG", "addressId1:" + addressId + ":provinceId1" + provinceId + ":cityId1" + cityId + ":districtId1" + districtId);
+//                    } else if (tvProvince.getText().toString().equals(province) && !tvCity.getText().toString().equals(city) && !tvDistrict.getText().toString().equals(district)) {
+//                        inspone(strToken, addressId, commonProId, cityId, districtId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+//                        Log.e("TAG", "etlatitude2:" + latitude + "::etlongitude2:" + longitude);
+//                        Log.e("TAG", "addressId2:" + addressId + ":provinceId2" + commonProId + ":cityId2" + cityId + ":districtId2" + districtId);
+//                    } else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && !tvDistrict.getText().toString().equals(district)) {
+//                        inspone(strToken, addressId, commonProId, commonCityId, districtId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+//                        Log.e("TAG", "etlatitude3:" + latitude + "::etlongitude3:" + longitude);
+//                        Log.e("TAG", "addressId3:" + addressId + ":provinceId3:" + commonProId + ":cityId3:" + commonCityId + ":districtId3:" + districtId);
+//                    } else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) && !tvAddress.getText().toString().equals(detailAddress)) {
+//                        inspone(strToken, addressId, commonProId, commonCityId, commonDisId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+//                        Log.e("TAG", "etlatitude4:" + latitude + "::etlongitude4:" + longitude);
+//                        Log.e("TAG", "addressId4:" + addressId + ":provinceId4:" + commonProId + ":cityId4:" + commonCityId + ":districtId4:" + commonDisId + "tvAddress4:" + tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + tvAddress.getText().toString());
+//                    }
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String strJson = response.body().string();
-                        gson = new Gson();
-                        final SaveEditAddressBean saveEditAddressBean = gson.fromJson(strJson, SaveEditAddressBean.class);
-                        if (saveEditAddressBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
-                            intent = new Intent(EditCommonAdressActivity.this, CommonAdressActivity.class);
-                            startActivity(intent);
-                        } else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtil.showShort(EditCommonAdressActivity.this, (String) saveEditAddressBean.getMessage());
-                                    return;
-                                }
-                            });
-                        }
-                    }
-                });
+                }
+
                 break;
             default:
                 break;
         }
     }
+
+    private void inspone(String strToken, int addressId, int commonProId, int commonCityId, int commonDisId, String detailAddress, double etLongitude, double etLatitude, String s, String s1) {
+        request = new Request.Builder()
+                .url(Constant.CONSTANT + "/updateOrderAddress.do?token=" + strToken + "&addressId=" + addressId + "&provinceId=" + commonProId
+                        + "&cityId=" + commonCityId + "&districtId=" + commonDisId + "&detailAddress=" + detailAddress + "&longitude=" + etLongitude + "&latitude="
+                        + etLatitude + "&contactName=" + s + "&contactPhone=" + s1)
+                .build();
+        client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShort(EditCommonAdressActivity.this, "网络请求异常");
+                        return;
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String strJson = response.body().string();
+                gson = new Gson();
+                final SaveEditAddressBean saveEditAddressBean = gson.fromJson(strJson, SaveEditAddressBean.class);
+
+                if (saveEditAddressBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
+                    intent = new Intent(EditCommonAdressActivity.this, CommonAdressActivity.class);
+                    startActivity(intent);
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(EditCommonAdressActivity.this, (String) saveEditAddressBean.getMessage());
+                            return;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 
     private void getLatlon(String address) {
         GeocodeQuery query = new GeocodeQuery(address, "");// 第一个参数表示地址，第二个参数表示查询城市，中文或者中文全拼，citycode、adcode，
@@ -492,6 +545,7 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 tvProvince.setText(provinces.get(position).getProvName());
                 cities = provinces.get(position).getCities();
                 provinceId = provinces.get(position).getProvId();
+                Log.e("TAG", "provinceId:" + provinceId);
                 popupWindow.dismiss();
             }
         });
@@ -561,6 +615,27 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
             GeocodeAddress address = geocodeResult.getGeocodeAddressList().get(0);
             latitude = address.getLatLonPoint().getLatitude();
             longitude = address.getLatLonPoint().getLongitude();
+            Log.e("TAG", "etlatitude5:" + latitude + "::etlongitude5:" + longitude);
+
+            //地址更改
+            if (!tvProvince.getText().toString().equals(province) && !tvCity.getText().toString().equals(city) && !tvDistrict.getText().toString().equals(district)) {
+                inspone(strToken, addressId, provinceId, cityId, districtId, tvAddress.getText().toString(),longitude , latitude, etName.getText().toString(), etPhone.getText().toString());
+                Log.e("TAG", "etlatitude1:" + latitude + "::etlongitude1:" + longitude);
+                Log.e("TAG", "addressId1:" + addressId + ":provinceId1" + provinceId + ":cityId1" + cityId + ":districtId1" + districtId);
+            } else if (tvProvince.getText().toString().equals(province) && !tvCity.getText().toString().equals(city) && !tvDistrict.getText().toString().equals(district)) {
+                inspone(strToken, addressId, commonProId, cityId, districtId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+                Log.e("TAG", "etlatitude2:" + latitude + "::etlongitude2:" + longitude);
+                Log.e("TAG", "addressId2:" + addressId + ":provinceId2" + commonProId + ":cityId2" + cityId + ":districtId2" + districtId);
+            } else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && !tvDistrict.getText().toString().equals(district)) {
+                inspone(strToken, addressId, commonProId, commonCityId, districtId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+                Log.e("TAG", "etlatitude3:" + latitude + "::etlongitude3:" + longitude);
+                Log.e("TAG", "addressId3:" + addressId + ":provinceId3:" + commonProId + ":cityId3:" + commonCityId + ":districtId3:" + districtId);
+            } else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) && !tvAddress.getText().toString().equals(detailAddress)) {
+                inspone(strToken, addressId, commonProId, commonCityId, commonDisId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+                Log.e("TAG", "etlatitude4:" + latitude + "::etlongitude4:" + longitude);
+                Log.e("TAG", "addressId4:" + addressId + ":provinceId4:" + commonProId + ":cityId4:" + commonCityId + ":districtId4:" + commonDisId + "tvAddress4:" + tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + tvAddress.getText().toString());
+            }
+
         } else {
             ToastUtil.showShort(EditCommonAdressActivity.this, "对不起，没有收到相关数据！");
             return;

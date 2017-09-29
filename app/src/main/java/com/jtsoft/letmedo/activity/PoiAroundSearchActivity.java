@@ -171,7 +171,6 @@ public class PoiAroundSearchActivity extends FragmentActivity implements TextWat
                     intent = new Intent(PoiAroundSearchActivity.this, EditCommonAdressActivity.class);
                     intent.putExtra("name", listString.get(position).get("name"));
                     setResult(NetWorkUtils.FLAG_EDIT_DISTRICT_result, intent);
-//                    minputlist.setVisibility(View.INVISIBLE);
                     finish();
                 }
             }

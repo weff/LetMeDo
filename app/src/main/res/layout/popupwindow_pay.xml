@@ -88,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balancepayment"
+            android:textColor="@color/black"
             android:layout_marginLeft="@dimen/length_60"
             android:layout_centerVertical="true"
             android:textSize="@dimen/size_18"/>
@@ -120,6 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alipay"
+            android:textColor="@color/black"
             android:layout_marginLeft="@dimen/length_60"
             android:layout_centerVertical="true"
             android:textSize="@dimen/size_18"/>
@@ -159,6 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wxpay"
+            android:textColor="@color/black"
             android:layout_marginLeft="60dp"
             android:layout_centerVertical="true"
             android:textSize="@dimen/size_18"/>
@@ -201,6 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/selectpayment"
+            android:textColor="@color/black"
             android:padding="@dimen/length_10"
             android:textSize="@dimen/size_18"/>
 

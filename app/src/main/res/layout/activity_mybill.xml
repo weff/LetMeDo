@@ -45,7 +45,7 @@
         <RelativeLayout
             android:id="@+id/edit_address"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/length_70"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/length_10"
             android:layout_marginRight="@dimen/length_10" >
 

@@ -2,7 +2,6 @@ package com.jtsoft.letmedo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,7 +17,6 @@ import com.google.gson.Gson;
 import com.jtsoft.letmedo.MainActivity;
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.adapter.CommonAdressAdapter;
-import com.jtsoft.letmedo.bean.CommonAdressBean;
 import com.jtsoft.letmedo.bean.GetAddressBean;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
@@ -26,7 +24,6 @@ import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -200,6 +197,7 @@ public class CommonAdressActivity extends AppCompatActivity implements View.OnCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         latitude = orderAddressList.get(position).getLatitude();
         longitude = orderAddressList.get(position).getLongitude();
+
         int addressId = orderAddressList.get(position).getAddressId();
         Log.e("TAG", "addre=====>" + addressId);
         String contactName = orderAddressList.get(position).getContactName();
@@ -209,6 +207,9 @@ public class CommonAdressActivity extends AppCompatActivity implements View.OnCl
         String provinceName = orderAddressList.get(position).getProvinceName();
         String cityName = orderAddressList.get(position).getCityName();
         String districtName = orderAddressList.get(position).getDistrictName();
+        int provinceId = orderAddressList.get(position).getProvinceId();
+        int cityId = orderAddressList.get(position).getCityId();
+        int districtId = orderAddressList.get(position).getDistrictId();
         if (goodsaddress == NetWorkUtils.SHOPSTORE_ADDRESS) {
             intent = new Intent(CommonAdressActivity.this, MyBillActivity.class);
             intent.putExtra("latitude", latitude);
@@ -228,6 +229,17 @@ public class CommonAdressActivity extends AppCompatActivity implements View.OnCl
             //跳转到编辑页面
             intent = new Intent(CommonAdressActivity.this, EditCommonAdressActivity.class);
             intent.putExtra("addressId", addressId);
+            Log.e("TAG","addressId_common:" + addressId);
+            intent.putExtra("province",provinceName);
+            intent.putExtra("city",cityName);
+            intent.putExtra("district",districtName);
+            intent.putExtra("detailAddress",detailAddress);
+            intent.putExtra("provinceId",provinceId);
+            intent.putExtra("cityId",cityId);
+            intent.putExtra("latitude",latitude);
+            intent.putExtra("longitude",longitude);
+            Log.e("TAG","latitude:" + latitude + "::longitude:" + longitude);
+            intent.putExtra("districtId",districtId);
             startActivityForResult(intent, NetWorkUtils.FLAG_EDIT_DISTRICT);
         }
     }
