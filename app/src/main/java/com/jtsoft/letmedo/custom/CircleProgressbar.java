@@ -1,5 +1,6 @@
 package com.jtsoft.letmedo.custom;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -20,6 +21,7 @@ import com.jtsoft.letmedo.R;
  * Created by admin on 2017/7/24.
  * 自定义进度条
  */
+@SuppressLint("AppCompatCustomView")
 public class CircleProgressbar extends TextView {
     //外部轮廓的颜色
     private int outLineColor = Color.BLACK;

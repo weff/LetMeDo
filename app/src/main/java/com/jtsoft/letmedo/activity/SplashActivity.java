@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -67,13 +66,14 @@ public class SplashActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         //判断是否是第一次进入
-        final SharedPreferences sharedPreferences = getSharedPreferences("is_first_in_data", MODE_PRIVATE);
-        isFirstIn = sharedPreferences.getBoolean("isFirstIn", true);
-
+//        final SharedPreferences sharedPreferences = getSharedPreferences("is_first_in_data", MODE_PRIVATE);
+//        isFirstIn = sharedPreferences.getBoolean("isFirstIn", true);
         mCircleProgressbar = (CircleProgressbar) findViewById(R.id.tv_red_skip);
         mCircleProgressbar.setOutLineColor(Color.TRANSPARENT);
-        mCircleProgressbar.setInCircleColor(android.graphics.Color.alpha(R.color.progressbar_start));
-        mCircleProgressbar.setProgressColor(android.graphics.Color.alpha(R.color.progressbar_end));
+//        mCircleProgressbar.setInCircleColor(android.graphics.Color.alpha(R.color.progressbar_start));
+//        mCircleProgressbar.setProgressColor(android.graphics.Color.alpha(R.color.progressbar_end));
+        mCircleProgressbar.setInCircleColor(Color.parseColor("#505559"));
+        mCircleProgressbar.setProgressColor(Color.parseColor("#1BB079"));
         mCircleProgressbar.setProgressLineWidth(5);
         mCircleProgressbar.setProgressType(CircleProgressbar.ProgressType.COUNT);
         mCircleProgressbar.setTimeMillis(5000);
@@ -103,7 +103,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-/////111111111
 
     public static String sHA1(Context context) {
         try {
@@ -133,7 +132,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    /////1111111111
     private CircleProgressbar.OnCountdownProgressListener progressListener = new CircleProgressbar.OnCountdownProgressListener() {
         @Override
         public void onProgress(int what, int progress) {

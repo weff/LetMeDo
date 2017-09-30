@@ -113,13 +113,11 @@
 
                 <CheckBox
                     android:id="@+id/female"
-                    android:layout_width="@dimen/length_20"
-                    android:layout_height="@dimen/length_20"
-                    android:scaleY="1.5"
-                    android:scaleX="1.5"
-                    android:button="@drawable/check_box"
+                    android:layout_width="@dimen/length_30"
+                    android:layout_height="@dimen/length_30"
+                    android:button="@null"
                     android:gravity="center"
-                    android:background="@null"
+                    android:background="@drawable/check_box"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/length_30"/>
                 <TextView
@@ -133,12 +131,10 @@
 
                 <CheckBox
                     android:id="@+id/male"
-                    android:layout_width="@dimen/length_20"
-                    android:layout_height="@dimen/length_20"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:button="@drawable/check_box"
-                    android:background="@null"
+                    android:layout_width="@dimen/length_30"
+                    android:layout_height="@dimen/length_30"
+                    android:button="@null"
+                    android:background="@drawable/check_box"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginLeft="@dimen/length_30"/>
