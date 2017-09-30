@@ -139,7 +139,7 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(AddCommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(AddCommonAdressActivity.this, R.string.no_net + "");
                     }
                 });
             }
@@ -279,7 +279,7 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(AddCommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(AddCommonAdressActivity.this,R.string.no_net + "");
                         return;
                     }
                 });

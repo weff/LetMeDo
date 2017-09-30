@@ -103,7 +103,7 @@ public class UseCouponActivity extends AppCompatActivity implements View.OnClick
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(UseCouponActivity.this, "网络请求异常");
+                        ToastUtil.showShort(UseCouponActivity.this, R.string.no_net +"");
                         return;
                     }
                 });

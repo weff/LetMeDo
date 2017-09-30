@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ToastUtil.showShort(LoginActivity.this, "网络请求失败");
+                                    ToastUtil.showShort(LoginActivity.this, R.string.no_net +"");
                                     return;
                                 }
                             });

@@ -33,6 +33,7 @@ public class PreGetGoodsAdapter extends BaseAdapter{
     OneViewHolder oneHolder = null;
     MoreViewHolder moreHolder = null;
     private PreGetGoodsBean.ResponseBean.OrderListBean orderListBean;
+    private PayGoodsInterface payGoodsInterface;
 
     public PreGetGoodsAdapter(Context context, List<PreGetGoodsBean.ResponseBean.OrderListBean> mDatas) {
         this.context = context;
@@ -102,6 +103,21 @@ public class PreGetGoodsAdapter extends BaseAdapter{
             oneHolder.subject.setText(orderListBean.getOrderGoodsList().get(0).getGoods().getName());
             Glide.with(context).load(orderListBean.getOrderGoodsList().get(0).getGoods().getImage()).into(oneHolder.Img);
             oneHolder.orderprice.setText("商品总价: ￥" + orderListBean.getOrderPrice());
+            //确认收货
+            oneHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //先跳到订单详情
+                    payGoodsInterface.doPay(position);
+                }
+            });
+            //抢红包
+            oneHolder.pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    payGoodsInterface.doCancel(position);
+                }
+            });
 
             //两种以及以上商品的情况
         } else if (currentType == TYPE_MORE) {
@@ -133,6 +149,21 @@ public class PreGetGoodsAdapter extends BaseAdapter{
             moreHolder.bill.setText(orderListBean.getOrderCode());
             moreHolder.ordernum.setText(orderListBean.getOrderGoodsList().size() + "");
             moreHolder.orderprice.setText(orderListBean.getOrderPrice() + "");
+            //确认收货
+            moreHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //跳到订单详情，进行收货
+                    payGoodsInterface.doPay(position);
+                }
+            });
+            //抢红包
+            moreHolder.pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    payGoodsInterface.doCancel(position);
+                }
+            });
         }
         return convertView;
     }
@@ -155,5 +186,15 @@ public class PreGetGoodsAdapter extends BaseAdapter{
         ImageView Img;
         TextView ordernum;
         Button delete, pay;
+    }
+
+
+
+    public interface PayGoodsInterface{
+        void doPay(int position);
+        void doCancel(int position);
+    }
+    public void setPayGoodsInterface(PayGoodsInterface payGoodsInterface) {
+        this.payGoodsInterface = payGoodsInterface;
     }
 }

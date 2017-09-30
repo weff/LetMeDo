@@ -316,7 +316,7 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(MyBillActivity.this, "网络请求异常");
+                        ToastUtil.showShort(MyBillActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -369,7 +369,7 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(MyBillActivity.this, "网络请求异常");
+                        ToastUtil.showShort(MyBillActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -450,7 +450,7 @@ public class MyBillActivity extends AppCompatActivity implements View.OnClickLis
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ToastUtil.showShort(MyBillActivity.this, "网络请求异常");
+                                ToastUtil.showShort(MyBillActivity.this, R.string.no_net +"");
                                 return;
                             }
                         });

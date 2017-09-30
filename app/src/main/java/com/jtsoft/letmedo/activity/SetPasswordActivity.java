@@ -111,7 +111,7 @@ public class SetPasswordActivity extends AppCompatActivity implements View.OnCli
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ToastUtil.showShort(SetPasswordActivity.this, "网络请求失败");
+                                    ToastUtil.showShort(SetPasswordActivity.this, R.string.no_net +"");
                                     return;
                                 }
                             });

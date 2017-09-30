@@ -124,7 +124,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(ShopCartsDetailActivity.this, "网络请求异常");
+                        ToastUtil.showShort(ShopCartsDetailActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -304,7 +304,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(ShopCartsDetailActivity.this,"网络请求异常");
+                        ToastUtil.showShort(ShopCartsDetailActivity.this,R.string.no_net +"");
                         return;
                     }
                 });

@@ -135,7 +135,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.showShort(RegisterActivity.this,R.string.no_net +"");
+                                    return;
+                                }
+                            });
                         }
 
                         @Override
@@ -193,7 +199,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(RegisterActivity.this,"网络请求错误");
+                        ToastUtil.showShort(RegisterActivity.this,R.string.no_net +"");
                         return;
                     }
                 });

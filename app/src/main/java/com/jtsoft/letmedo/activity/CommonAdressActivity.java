@@ -85,7 +85,7 @@ public class CommonAdressActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(CommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(CommonAdressActivity.this, R.string.no_net + "");
                     }
                 });
             }

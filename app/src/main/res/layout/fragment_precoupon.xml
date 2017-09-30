@@ -22,6 +22,7 @@
                 android:src="@drawable/coupon_null" />
 
             <TextView
+                android:id="@+id/nocoupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/picture"

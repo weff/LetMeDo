@@ -107,7 +107,7 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(PersonalMsgActivity.this,"网络请求错误");
+                        ToastUtil.showShort(PersonalMsgActivity.this,R.string.no_net + "");
                         return;
                     }
                 });
@@ -273,7 +273,7 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ToastUtil.showShort(PersonalMsgActivity.this,"网络请求失败");
+                                ToastUtil.showShort(PersonalMsgActivity.this,R.string.no_net +"");
                                 return;
                             }
                         });

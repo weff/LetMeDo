@@ -79,7 +79,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(MyAccountActivity.this,"网络请求异常");
+                        ToastUtil.showShort(MyAccountActivity.this,R.string.no_net +"");
                         return;
                     }
                 });

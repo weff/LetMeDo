@@ -70,9 +70,7 @@ public class SplashActivity extends AppCompatActivity {
 //        isFirstIn = sharedPreferences.getBoolean("isFirstIn", true);
         mCircleProgressbar = (CircleProgressbar) findViewById(R.id.tv_red_skip);
         mCircleProgressbar.setOutLineColor(Color.TRANSPARENT);
-//        mCircleProgressbar.setInCircleColor(android.graphics.Color.alpha(R.color.progressbar_start));
-//        mCircleProgressbar.setProgressColor(android.graphics.Color.alpha(R.color.progressbar_end));
-        mCircleProgressbar.setInCircleColor(Color.parseColor("#505559"));
+        mCircleProgressbar.setInCircleColor(Color.parseColor("#999999"));
         mCircleProgressbar.setProgressColor(Color.parseColor("#1BB079"));
         mCircleProgressbar.setProgressLineWidth(5);
         mCircleProgressbar.setProgressType(CircleProgressbar.ProgressType.COUNT);

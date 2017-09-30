@@ -45,16 +45,6 @@ public class PrePayFragment extends LazyLoadFragment implements PrePayFragmentAd
     private int pageSize = 10;
     private int totalPage;
     private String strToken;
-
-
-//    //视图初始化
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        context = getActivity();
-//        view = LayoutInflater.from(context).inflate(R.layout.fragment_prepay, container, false);
-//        return view;
-//    }
     //加载布局显示
     @Override
     protected int setContentView() {
@@ -70,23 +60,6 @@ public class PrePayFragment extends LazyLoadFragment implements PrePayFragmentAd
         //数据初始化
         initData();
     }
-
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        //TODO
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-
-//    //控件、数据初始化
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        //控件初始化
-//        initView();
-//        //数据初始化
-//        initData();
-//    }
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
@@ -106,7 +79,7 @@ public class PrePayFragment extends LazyLoadFragment implements PrePayFragmentAd
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络异常");
+                        ToastUtil.showShort(context, R.string.no_net +"");
                         if (current_Page == 1) {
                             currentPage = 1;
                         } else {
@@ -224,7 +197,7 @@ public class PrePayFragment extends LazyLoadFragment implements PrePayFragmentAd
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context,"网络请求异常");
+                        ToastUtil.showShort(context,R.string.no_net +"");
                         return;
                     }
                 });

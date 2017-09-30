@@ -169,7 +169,7 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(EditCommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(EditCommonAdressActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -207,7 +207,7 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(EditCommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(EditCommonAdressActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -422,7 +422,7 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(EditCommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(EditCommonAdressActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -574,7 +574,7 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(EditCommonAdressActivity.this, "网络请求异常");
+                        ToastUtil.showShort(EditCommonAdressActivity.this, R.string.no_net +"");
                         return;
                     }
                 });

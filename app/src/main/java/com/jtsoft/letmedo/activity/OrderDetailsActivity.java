@@ -192,7 +192,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
+                        ToastUtil.showShort(OrderDetailsActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -224,7 +224,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
+                        ToastUtil.showShort(OrderDetailsActivity.this, R.string.no_net +"");
                         return;
                     }
                 });
@@ -391,6 +391,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         mActualPayment = (TextView) findViewById(R.id.Actual_payment);
         //删除订单控件
         mDelete = (Button) findViewById(R.id.delete);
+        mDelete.setOnClickListener(this);
         //付款控件
         mPay = (Button) findViewById(R.id.pay);
         mPay.setOnClickListener(this);
@@ -529,7 +530,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
+                                ToastUtil.showShort(OrderDetailsActivity.this, R.string.no_net +"");
                                 return;
                             }
                         });
@@ -656,7 +657,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(OrderDetailsActivity.this, "网络异常");
+                        ToastUtil.showShort(OrderDetailsActivity.this, R.string.no_net +"");
                         return;
                     }
                 });

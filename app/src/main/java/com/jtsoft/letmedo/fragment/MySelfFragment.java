@@ -69,16 +69,6 @@ public class MySelfFragment extends LazyLoadFragment {
         initData();
     }
 
-//    //控件 数据初始化
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        //控件初始化
-//        initView();
-//        //数据初始化
-//        initData();
-//    }
-
     private void initData() {
         strToken = SharedpreferencesManager.getToken();
         //自提订单接口
@@ -99,7 +89,7 @@ public class MySelfFragment extends LazyLoadFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求异常");
+                        ToastUtil.showShort(context, R.string.no_net +"");
                         listView.onFinish();
                         if (current_Page == 1) {
                             currentPage = 1;

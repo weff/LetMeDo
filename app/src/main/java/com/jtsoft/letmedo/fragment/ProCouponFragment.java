@@ -1,17 +1,11 @@
 package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
-import com.jtsoft.letmedo.activity.CouponActivity;
 import com.jtsoft.letmedo.adapter.ProCouponAdapter;
 import com.jtsoft.letmedo.bean.OutTimeBean;
 import com.jtsoft.letmedo.bean.ProCouponBean;
@@ -21,7 +15,6 @@ import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -35,26 +28,22 @@ import okhttp3.Response;
  * 已使用优惠券页面
  */
 
-public class ProCouponFragment extends Fragment{
+public class ProCouponFragment extends LazyLoadFragment{
 
     private Context context;
     private View view;
     private ListView listView;
     private List<OutTimeBean.ResponseBean.CouponListBean> couponList;
 
-    @Nullable
-    //视图初始化
+    //页面加载
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int setContentView() {
         context = getActivity();
-        view = LayoutInflater.from(context).inflate(R.layout.fragment_procoupon, container, false);
-        return view;
+        return R.layout.fragment_procoupon;
     }
-
-    //控件、数据初始化
+  //数据加载
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void lazyLoad() {
         //控件初始化
         initView();
         //数据初始化
@@ -78,7 +67,7 @@ public class ProCouponFragment extends Fragment{
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context,"网络异常");
+                        ToastUtil.showShort(context,R.string.no_net +"");
                         return;
                     }
                 });
@@ -118,6 +107,6 @@ public class ProCouponFragment extends Fragment{
 
     private void initView() {
         //lisstview控件
-        listView = (ListView) view.findViewById(R.id.listview);
+        listView = (ListView) getContentView().findViewById(R.id.listview);
     }
 }

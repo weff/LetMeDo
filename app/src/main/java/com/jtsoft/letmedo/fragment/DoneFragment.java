@@ -95,7 +95,7 @@ public class DoneFragment extends LazyLoadFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络请求异常");
+                        ToastUtil.showShort(context, R.string.no_net +"");
                         if (current_page == 1) {
                             currentPage = 1;
                         }else {

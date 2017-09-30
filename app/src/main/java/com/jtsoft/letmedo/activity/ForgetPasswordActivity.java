@@ -144,7 +144,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ToastUtil.showShort(ForgetPasswordActivity.this, "网络请求失败");
+                                    ToastUtil.showShort(ForgetPasswordActivity.this, R.string.no_net +"");
                                     return;
                                 }
                             });
@@ -206,7 +206,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(ForgetPasswordActivity.this, "网络请求失败");
+                        ToastUtil.showShort(ForgetPasswordActivity.this, R.string.no_net +"");
                         return;
                     }
                 });

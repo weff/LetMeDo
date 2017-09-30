@@ -170,7 +170,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络异常");
+                        ToastUtil.showShort(context, R.string.no_net +"");
                         return;
                     }
                 });
@@ -235,7 +235,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络异常");
+                        ToastUtil.showShort(context, R.string.no_net +"");
                         return;
                     }
                 });
@@ -278,7 +278,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(context, "网络异常");
+                        ToastUtil.showShort(context, R.string.no_net +"");
                         return;
                     }
                 });
