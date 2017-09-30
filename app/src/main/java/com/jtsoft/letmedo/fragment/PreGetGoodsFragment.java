@@ -46,15 +46,6 @@ public class PreGetGoodsFragment extends LazyLoadFragment implements PreGetGoods
     private int totalPage;
     private List<PreGetGoodsBean.ResponseBean.OrderListBean> newList;
 
-
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        context = getActivity();
-//        view = LayoutInflater.from(context).inflate(R.layout.fragment_pregetgoods, container, false);
-//        return view;
-//    }
-
     //加载布局
     @Override
     protected int setContentView() {
@@ -69,15 +60,6 @@ public class PreGetGoodsFragment extends LazyLoadFragment implements PreGetGoods
         //数据初始化
         initData();
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        //控件初始化
-//        initView();
-//        //数据初始化
-//        initData();
-//    }
 
     private void initData() {
         strToken = SharedpreferencesManager.getToken();

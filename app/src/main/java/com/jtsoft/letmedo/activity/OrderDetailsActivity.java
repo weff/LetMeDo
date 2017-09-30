@@ -304,11 +304,11 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                             //优惠券减去价钱
                             mCouponPrice.setText("- ￥" + couponPrice);
                             //配送距离显示
-                            double mDistance = distance / 1000;
-                            String format = String.format("%.2f", mDistance);
-                            OrderDetailsActivity.this.mDistance.setText(format + "");
+                            double mdistance = distance / 1000;
+                            String format = String.format("%.2f", mdistance);
+                            mDistance.setText(format + "公里");
                             //配送费显示
-                            mSendPrice.setText(expressPrice + "");
+                            mSendPrice.setText("+" + expressPrice + "元");
                             //实付款显示
                             double payResult = orderPrice + expressPrice;
                             mActualPayment.setText("￥" + payResult);
