@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -56,6 +57,7 @@ public class CommonAdressActivity extends AppCompatActivity implements View.OnCl
     private double longitude;
     private ImageView Img;
     private TextView Scrb;
+    private EditText etHouseNum;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,7 +168,6 @@ public class CommonAdressActivity extends AppCompatActivity implements View.OnCl
         //从确认订单传来的值
         intent = getIntent();
         goodsaddress = intent.getIntExtra("goodsaddress", -1);
-
     }
 
     @Override

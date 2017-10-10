@@ -24,7 +24,7 @@
             android:textColor="@color/black"/>
         <TextView
             android:id="@+id/phonenumber_address"
-            android:text="18319628135"
+            android:text=""
             android:layout_marginTop="@dimen/length_10"
             android:layout_marginLeft="@dimen/length_10"
             android:textSize="@dimen/size_18"

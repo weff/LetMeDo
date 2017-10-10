@@ -100,6 +100,9 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
     private int commonDisId;
     private double etLatitude;
     private double etLongitude;
+    private EditText HouseNum;
+    private String mAddres;
+    private String mHouseNum;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -230,12 +233,19 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                             String districtName = orderAddress.getDistrictName();
                             String provinceName = orderAddress.getProvinceName();
                             String detailAddress = orderAddress.getDetailAddress();
+                            String[] split = detailAddress.split(" ");
+                            //详细地址
+                            mAddres = split[0];
+                            //门牌号
+                            mHouseNum = split[1];
+                            HouseNum.setText(mHouseNum);
                             etName.setText(contactName);
                             etPhone.setText(contactPhone);
                             tvProvince.setText(provinceName);
                             tvCity.setText(cityName);
                             tvDistrict.setText(districtName);
-                            tvAddress.setText(detailAddress);
+                            tvAddress.setText(mAddres);
+
                         }
                     });
                 } else {
@@ -278,6 +288,8 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
         tvDistrict = (TextView) findViewById(R.id.tvdistrict);
         //详细地址控件
         tvAddress = (TextView) findViewById(R.id.address);
+        //门牌号控件
+        HouseNum = (EditText) findViewById(R.id.house_number);
         //保存控件
         SaveButton = (Button) findViewById(R.id.saveAdress);
 
@@ -373,10 +385,13 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 } else if (tvAddress.getText().toString().equals("") || tvAddress.getText().toString().equals("点击选择")) {
                     Toast.makeText(this, R.string.supplyaddress, Toast.LENGTH_SHORT).show();
                     return;
+                }else if (HouseNum.getText().toString().equals("") && HouseNum.getText().toString().equals("请输入门牌号")) {
+                    ToastUtil.showShort(this,"请补充完没门牌号");
+                    return;
                 }
                 //如果地址没有更改
                 if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) &&
-                        tvAddress.getText().toString().equals(detailAddress)) {
+                        tvAddress.getText().toString().equals(mAddres) && HouseNum.getText().toString().equals(mHouseNum)) {
                     inspone(strToken, addressId, commonProId, commonCityId, commonDisId, detailAddress, etLongitude, etLatitude, etName.getText().toString(), etPhone.getText().toString());
                     Log.e("TAG", "latitude:" + etLatitude + "::longitude:" + etLongitude);
                 } else {

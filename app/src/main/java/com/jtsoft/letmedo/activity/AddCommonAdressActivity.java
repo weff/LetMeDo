@@ -79,6 +79,8 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
     private double latitude;
     private double longitude;
     private Intent intent;
+    private EditText etHouseNum;
+    private String detailAdd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -189,6 +191,8 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
         tvDistrict = (TextView) findViewById(R.id.tvdistrict);
         //详细地址控件
         tvAddress = (TextView) findViewById(R.id.address);
+        //门牌号控件
+        etHouseNum = (EditText) findViewById(R.id.house_number);
         //保存控件
         SaveButton = (Button) findViewById(R.id.saveAdress);
 
@@ -242,6 +246,8 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
     }
 
     private void initmap() {
+        //详细地址的拼接
+        detailAdd = tvAddress.getText().toString().trim() + " " + etHouseNum.getText().toString().trim();
         //判断姓名、电话以及地址是否为空
         if (etName.getText().toString().equals("")) {
             Toast.makeText(this, R.string.notnulluser, Toast.LENGTH_SHORT).show();
@@ -261,8 +267,11 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
         } else if (tvAddress.getText().toString().equals("")) {
             Toast.makeText(this, R.string.supplyaddress, Toast.LENGTH_SHORT).show();
             return;
+        } else if (etHouseNum.getText().toString().equals("")) {
+            ToastUtil.showShort(this, "请把门牌号补充完整");
+            return;
         }
-        getLatlon(tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + tvAddress.getText().toString());
+        getLatlon(tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + detailAdd);
     }
 
     private void initSpone(String strToken, int provId, int cityId, int districtId, String s, double longitude, double latitude, String s1, String s2) {
@@ -271,7 +280,7 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
                         + "&cityId=" + cityId + "&districtId=" + districtId + "&detailAddress=" + s + "&longitude=" + longitude
                         + "&latitude=" + latitude + "&contactName=" + s1 + "&contactPhone=" + s2)
                 .build();
-        Log.e("LL","latitude:" + latitude + "longitude:" + longitude);
+        Log.e("LL", "latitude:" + latitude + "longitude:" + longitude);
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -279,7 +288,7 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(AddCommonAdressActivity.this,R.string.no_net + "");
+                        ToastUtil.showShort(AddCommonAdressActivity.this, R.string.no_net + "");
                         return;
                     }
                 });
@@ -292,8 +301,21 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
                 final AddaddressBean addaddressBean = gson.fromJson(strJson, AddaddressBean.class);
                 if (addaddressBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
                     //获取省市区联系方式，然后将数据上传服务器
-                    intent = new Intent(AddCommonAdressActivity.this, CommonAdressActivity.class);
-                    startActivity(intent);
+                    String HouseNum = etHouseNum.getText().toString().trim();
+                    if (HouseNum.equals("")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtil.showShort(AddCommonAdressActivity.this, "门牌号不能为空");
+                                return;
+                            }
+                        });
+                    } else {
+                        intent = new Intent(AddCommonAdressActivity.this, CommonAdressActivity.class);
+                        intent.putExtra("housenumber", etHouseNum.getText().toString().trim());
+                        startActivity(intent);
+                    }
+
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -316,15 +338,16 @@ public class AddCommonAdressActivity extends AppCompatActivity implements View.O
             public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
 
             }
+
             @Override
             public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
                 Log.e("LL", "i====" + i);
-                Log.e("LL","geocodeResult:" + geocodeResult);
+                Log.e("LL", "geocodeResult:" + geocodeResult);
                 if (geocodeResult != null) {
                     GeocodeAddress address = geocodeResult.getGeocodeAddressList().get(0);
                     latitude = address.getLatLonPoint().getLatitude();
                     longitude = address.getLatLonPoint().getLongitude();
-                    initSpone(strToken,provId,cityId,districtId,tvAddress.getText().toString(),longitude,latitude,etName.getText().toString(),etPhone.getText().toString());
+                    initSpone(strToken, provId, cityId, districtId, detailAdd, longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
 
                 } else {
                     ToastUtil.showShort(AddCommonAdressActivity.this, "对不起，没有收到相关数据！");

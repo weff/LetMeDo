@@ -42,17 +42,6 @@ public class MySelfFragment extends LazyLoadFragment {
     private MyselfAdapter adapter;
     private int totalPage;
 
-//    @Nullable
-//    //试图初始化
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        //获取上下文
-//        context = getActivity();
-//        //填充布局
-//        view = LayoutInflater.from(context).inflate(R.layout.fragment_myself, container, false);
-//        return view;
-//    }
-
     //加载布局
     @Override
     protected int setContentView() {
