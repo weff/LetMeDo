@@ -12,7 +12,10 @@ public class WebInterface {
     //跳到商品详情
     @JavascriptInterface
     public void oGoodsDetail(int goodsId) {
+    }
+    //加入到购物车
+    @JavascriptInterface
+    public void toShopCarts(int goodsId) {
 
     }
-
 }

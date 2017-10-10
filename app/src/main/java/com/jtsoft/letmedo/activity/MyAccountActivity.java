@@ -1,14 +1,18 @@
 package com.jtsoft.letmedo.activity;
 
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -62,6 +66,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         //数据初始化
         initData();
     }
+
     //  数据初始化
     private void initData() {
         //网络请求，获取用户余额信息
@@ -79,7 +84,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(MyAccountActivity.this,R.string.no_net +"");
+                        ToastUtil.showShort(MyAccountActivity.this, R.string.no_net + "");
                         return;
                     }
                 });
@@ -96,10 +101,10 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mAmount.setText(preDeposit +"元");
+                            mAmount.setText(preDeposit + "元");
                         }
                     });
-                }else {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -146,6 +151,9 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         strToken = SharedpreferencesManager.getToken();
     }
 
+    //给个标志，如果充值金额被选中，就给a赋值1,2,3，否则就是没选中
+    int a = 0;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -156,27 +164,69 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 //弹出dialog
                 showMarkDialog();
                 break;
+            //充值金额100被选中
             case R.id.recharge1:
-                //TODO
+                a = 1;
+                mRecharge2.setBackgroundResource(R.drawable.square_shape_normal);
+                mRecharge3.setBackgroundResource(R.drawable.square_shape_normal);
+                //这TM不判断充值金额是否已经选中
+                mRecharge1.setBackgroundResource(R.drawable.square_shape_select);
                 break;
+            //充值金额500被选中
             case R.id.recharge2:
-                //TODO
+                a = 2;
+                mRecharge1.setBackgroundResource(R.drawable.square_shape_normal);
+                mRecharge3.setBackgroundResource(R.drawable.square_shape_normal);
+                mRecharge2.setBackgroundResource(R.drawable.square_shape_select);
                 break;
+            //充值金额1000被选中
             case R.id.recharge3:
-                //TODO
+                a = 3;
+                mRecharge1.setBackgroundResource(R.drawable.square_shape_normal);
+                mRecharge2.setBackgroundResource(R.drawable.square_shape_normal);
+                mRecharge3.setBackgroundResource(R.drawable.square_shape_select);
                 break;
             case R.id.recharge_button:
-                //弹出popup 进行充值
-                //TODO
+                //先判断充值金额是否已选
+                //如果没有选择充值金额，就会提醒选择充值金额
+                if (a == 1 || a == 2 || a == 3) {
+                    //已选择充值金额，就可以点击，继而弹出弹窗
+                    //弹出popup 进行充值
+                    showRechargeWindow();
+                } else {
+                    ToastUtil.showShort(MyAccountActivity.this, "请选择充值金额");
+                    return;
+                }
+
                 break;
         }
+    }
+
+    //弹出充值弹窗
+    private void showRechargeWindow() {
+        View view = LayoutInflater.from(MyAccountActivity.this).inflate(R.layout.window_recharge, null);
+        final PopupWindow popupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setAnimationStyle(R.style.popupAnimation);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.showAsDropDown(view);
+        //控件初始化
+        //TODO
+        //先对选择按钮进行判断是否选中，继而判断充值金额的数据（如果a=1,就是充值100；a=2，就是充值500；a=3，就是充值1000）
+        //判断选择按钮是否
+        //TODO
+        //点击确定按钮,然后先判断充值金额的多少，再进行逻辑充值
+
     }
 
     private void showMarkDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("九月推荐")
                 .setMessage("xxxxx")
-                .setNegativeButton("取消",null)
+                .setNegativeButton("取消", null)
                 .show();
     }
 }

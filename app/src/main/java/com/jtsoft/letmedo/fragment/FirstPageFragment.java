@@ -1,4 +1,4 @@
-package com.jtsoft.letmedo. fragment;
+package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -33,7 +33,9 @@ public class FirstPageFragment extends Fragment {
         view = LayoutInflater.from(context).inflate(R.layout.fragment_firstpage, null, false);
         return view;
     }
+
     //数据初始化
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -57,7 +59,7 @@ public class FirstPageFragment extends Fragment {
         //触摸焦点起作用
         mWebView.requestFocus();
         //点击链接继续在当前browser中相应
-        mWebView.setWebViewClient(new WebViewClient(){
+        mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
