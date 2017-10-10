@@ -654,10 +654,12 @@ public class EditCommonAdressActivity extends AppCompatActivity implements View.
                 inspone(strToken, addressId, commonProId, commonCityId, districtId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
                 Log.e("TAG", "etlatitude3:" + latitude + "::etlongitude3:" + longitude);
                 Log.e("TAG", "addressId3:" + addressId + ":provinceId3:" + commonProId + ":cityId3:" + commonCityId + ":districtId3:" + districtId);
-            } else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) && !tvAddress.getText().toString().equals(detailAddress)) {
-                inspone(strToken, addressId, commonProId, commonCityId, commonDisId, tvAddress.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
+            } else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) && !tvAddress.getText().toString().equals(mAddres)) {
+                inspone(strToken, addressId, commonProId, commonCityId, commonDisId, tvAddress.getText().toString()+ " " + HouseNum.getText().toString(), longitude, latitude, etName.getText().toString(), etPhone.getText().toString());
                 Log.e("TAG", "etlatitude4:" + latitude + "::etlongitude4:" + longitude);
                 Log.e("TAG", "addressId4:" + addressId + ":provinceId4:" + commonProId + ":cityId4:" + commonCityId + ":districtId4:" + commonDisId + "tvAddress4:" + tvProvince.getText().toString() + tvCity.getText().toString() + tvDistrict.getText().toString() + tvAddress.getText().toString());
+            }else if (tvProvince.getText().toString().equals(province) && tvCity.getText().toString().equals(city) && tvDistrict.getText().toString().equals(district) && tvAddress.getText().toString().equals(mAddres) && !HouseNum.getText().toString().equals(mHouseNum)) {
+                inspone(strToken,addressId,commonProId,commonCityId,commonDisId,tvAddress.getText().toString()+" " +HouseNum.getText().toString(),longitude,latitude,etName.getText().toString(),etPhone.getText().toString());
             }
 
         } else {
