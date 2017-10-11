@@ -226,6 +226,12 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         RelativeLayout mAliRelay = (RelativeLayout) view.findViewById(R.id.relay1);
         //叉去按钮
       ImageView mCancle = (ImageView) view.findViewById(R.id.pay_cancel);
+        mCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
         //先对选择按钮进行判断是否选中，继而判断充值金额的数据（如果a=1,就是充值100；a=2，就是充值500；a=3，就是充值1000）
         //判断选择按钮是否
         //微信支付控件
