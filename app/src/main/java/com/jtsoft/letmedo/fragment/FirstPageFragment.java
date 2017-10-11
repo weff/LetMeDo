@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class FirstPageFragment extends Fragment {
         //跳到商品详情
         @JavascriptInterface
         public void oGoodsDetail(int goodsId,int storeId) {
+            Log.e("TAG","商品被调用了");
             Intent intent = new Intent(getActivity(), ShopCartsDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("goodsId",goodsId);

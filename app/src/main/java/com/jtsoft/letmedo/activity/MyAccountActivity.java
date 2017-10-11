@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -214,11 +215,66 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.showAsDropDown(view);
         //控件初始化
-        //TODO
+        //单选付款按钮
+        //微信选择按钮
+         final CheckBox mWXCheckBox = (CheckBox) view.findViewById(R.id.wxCheckBox);
+        //支付宝选择按钮
+       final CheckBox mAliPayCheckBox = (CheckBox) view.findViewById(R.id.alipayCheckBox);
+        //微信支付父控件
+       RelativeLayout mWXRelay = (RelativeLayout) view.findViewById(R.id.relay2);
+        //支付宝支付父控件
+        RelativeLayout mAliRelay = (RelativeLayout) view.findViewById(R.id.relay1);
+        //叉去按钮
+      ImageView mCancle = (ImageView) view.findViewById(R.id.pay_cancel);
         //先对选择按钮进行判断是否选中，继而判断充值金额的数据（如果a=1,就是充值100；a=2，就是充值500；a=3，就是充值1000）
         //判断选择按钮是否
-        //TODO
+        //微信支付控件
+        mWXRelay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWXCheckBox.isChecked();
+                mWXCheckBox.setVisibility(View.VISIBLE);
+                mWXCheckBox.setChecked(true);
+                mAliPayCheckBox.setChecked(false);
+                mAliPayCheckBox.setPressed(false);
+                mAliPayCheckBox.setFocusable(false);
+                mAliPayCheckBox.setVisibility(View.INVISIBLE);
+            }
+        });
+        //支付宝支付控件
+        mAliRelay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAliPayCheckBox.isChecked();
+                mAliPayCheckBox.setVisibility(View.VISIBLE);
+                mAliPayCheckBox.setChecked(true);
+                mWXCheckBox.setChecked(false);
+                mWXCheckBox.setPressed(false);
+                mWXCheckBox.setFocusable(false);
+                mWXCheckBox.setVisibility(View.INVISIBLE);
+            }
+        });
         //点击确定按钮,然后先判断充值金额的多少，再进行逻辑充值
+        //确认支付按钮
+       Button mConfrimPay = (Button)view.findViewById(R.id.confirm_pay);
+        mConfrimPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mWXCheckBox.isChecked()) {
+                    mWXCheckBox.setChecked(true);
+                    mAliPayCheckBox.setChecked(false);
+                    //接着就是微信支付逻辑
+//                    WetChatPay(jsonBeanAliPayText.getSignOrderStr());
+
+                } else if (mAliPayCheckBox.isChecked()) {
+                    mAliPayCheckBox.setChecked(true);
+                    mWXCheckBox.setChecked(false);
+                    //支付宝支付逻辑
+//                    AliPay(orderId,5,strToken);
+                }
+            }
+        });
 
     }
 
