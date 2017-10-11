@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.utils.Constant;
@@ -25,6 +27,9 @@ public class CategoryFragment extends Fragment {
 
     private View view;
     private WebView mWebView;
+    private ImageView Back;
+    private TextView Tittle;
+    private TextView Edit;
 
     @SuppressLint("JavaScriptInterface")
     //视图初始化
@@ -39,20 +44,27 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //标题栏控件
+        Back = (ImageView) view.findViewById(R.id.back_press);
+        Tittle = (TextView) view.findViewById(R.id.title_name);
+        Edit = (TextView) view.findViewById(R.id.edit);
+        Back.setVisibility(View.INVISIBLE);
+        Tittle.setText("品类");
+        Edit.setVisibility(View.INVISIBLE);
         //webview控件
         mWebView = (WebView) view.findViewById(R.id.webview);
         WebSettings settings = mWebView.getSettings();
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//设置不从缓存中加载网页
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
-        settings.setJavaScriptCanOpenWindowsAutomatically(true);
-        settings.setUseWideViewPort(true);//关键点
-        settings.setDisplayZoomControls(true);
-        settings.setSupportZoom(true);
+//        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
+//        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+//        settings.setUseWideViewPort(true);//关键点
+//        settings.setDisplayZoomControls(true);
+//        settings.setSupportZoom(true);
         settings.setJavaScriptEnabled(true); // 设置支持javascript脚本
-        settings.setAllowFileAccess(true); // 允许访问文件
-        settings.setBuiltInZoomControls(true); // 设置显示缩放按钮
-        settings.setLoadWithOverviewMode(true);
+//        settings.setAllowFileAccess(true); // 允许访问文件
+//        settings.setBuiltInZoomControls(true); // 设置显示缩放按钮
+//        settings.setLoadWithOverviewMode(true);
         //取消滚动条
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         //触摸焦点起作用

@@ -1,17 +1,19 @@
 package com.jtsoft.letmedo.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.jtsoft.letmedo.R;
+import com.jtsoft.letmedo.activity.ShopCartsDetailActivity;
 import com.jtsoft.letmedo.utils.Constant;
 
 
@@ -58,13 +60,24 @@ public class FirstPageFragment extends Fragment {
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         //触摸焦点起作用
         mWebView.requestFocus();
-        //点击链接继续在当前browser中相应
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+        mWebView.addJavascriptInterface(new HomeObject(),"HomeObject");
+    }
+    //内部类
+    public class HomeObject{
+        //跳到商品详情
+        @JavascriptInterface
+        public void oGoodsDetail(int goodsId,int storeId) {
+            Intent intent = new Intent(getActivity(), ShopCartsDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("goodsId",goodsId);
+            bundle.putInt("storeId",storeId);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        //加入到购物车
+        @JavascriptInterface
+        public void toShopCarts(int goodsId) {
+
+        }
     }
 }

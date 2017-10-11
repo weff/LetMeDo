@@ -115,8 +115,10 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        strToken = SharedpreferencesManager.getToken();
-        initSponse();
+        if (!hidden) {
+            strToken = SharedpreferencesManager.getToken();
+            initSponse();
+        }
     }
 
     private void AllCheck() {
