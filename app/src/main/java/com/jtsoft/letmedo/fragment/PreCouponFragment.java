@@ -88,7 +88,7 @@ public class PreCouponFragment extends LazyLoadFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (couponList.size() == 0 && couponList == null) {
+                            if (couponList.size() == 0 || couponList == null) {
                                 relayout.setVisibility(View.VISIBLE);
                                 pic.setVisibility(View.VISIBLE);
                                 mNoCoupon.setVisibility(View.VISIBLE);
@@ -117,7 +117,6 @@ public class PreCouponFragment extends LazyLoadFragment {
     }
 
     private void initView() {
-        //listview控件
         relayout = (RelativeLayout) getContentView().findViewById(R.id.coupon_null);
         //没有优惠券的显示图片
         pic = (ImageView) getContentView().findViewById(R.id.picture);

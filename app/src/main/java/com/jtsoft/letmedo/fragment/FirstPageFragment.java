@@ -80,15 +80,14 @@ public class FirstPageFragment extends Fragment {
             intent.putExtras(bundle);
             startActivity(intent);
         }
-
         //加入到购物车
         @JavascriptInterface
-        public void toShopCarts(int goodsId) {
-
-        }
+        public void toShopCarts(int goodsId) {}
         //充值有礼跳转到我的账户页面
-        public void toMyAcount() {
-
-        }
+        @JavascriptInterface
+        public void toMyAcount() {}
+        //跳转到及时送
+        @JavascriptInterface
+        public void toTimeDelivery() {}
     }
 }
