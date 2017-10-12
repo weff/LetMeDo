@@ -397,8 +397,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 //                //跳转到未用优惠券
                 intent = new Intent(context, CouponActivity.class);
                 startActivity(intent);
-//                intent = new Intent(context, ShopCartsDetailActivity.class);
-//                startActivity(intent);
                 break;
             case R.id.about_my_personal:
                 //点击头像，进入个人中心页面

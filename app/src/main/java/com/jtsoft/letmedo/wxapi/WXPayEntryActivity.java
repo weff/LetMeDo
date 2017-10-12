@@ -18,7 +18,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  */
 public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler{
     //注册微信的appid
-    private static final String APP_ID = "wxa6e222a74f4e465b";
+    private static final String APP_ID = "wx95c9af95561af4d6";
     private IWXAPI api;
 
     @Override

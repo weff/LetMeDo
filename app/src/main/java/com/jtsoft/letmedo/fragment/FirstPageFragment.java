@@ -27,12 +27,13 @@ public class FirstPageFragment extends Fragment {
 
     private View view;
     private WebView mWebView;
+    private Context context;
 
     //视图初始化
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Context context = getActivity();
+        context = getActivity();
         view = LayoutInflater.from(context).inflate(R.layout.fragment_firstpage, null, false);
         return view;
     }
@@ -61,24 +62,32 @@ public class FirstPageFragment extends Fragment {
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         //触摸焦点起作用
         mWebView.requestFocus();
-        mWebView.addJavascriptInterface(new HomeObject(),"HomeObject");
+        mWebView.addJavascriptInterface(new HomeObject(), "HomeObject");
     }
-    //内部类
-    public class HomeObject{
+
+
+    //内部类 供js调用原生
+    public class HomeObject {
         //跳到商品详情
         @JavascriptInterface
-        public void oGoodsDetail(int goodsId,int storeId) {
-            Log.e("TAG","商品被调用了");
-            Intent intent = new Intent(getActivity(), ShopCartsDetailActivity.class);
+        public void oGoodsDetail(int goodsId, int storeId) {
+            Log.e("TAG", "商品被调用了");
+            Intent intent = new Intent(context, ShopCartsDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putInt("goodsId",goodsId);
-            bundle.putInt("storeId",storeId);
+            bundle.putInt("goodsId", goodsId);
+            Log.e("TAG","首页的商品Id是：" + goodsId);
+            bundle.putInt("storeId", storeId);
             intent.putExtras(bundle);
             startActivity(intent);
         }
+
         //加入到购物车
         @JavascriptInterface
         public void toShopCarts(int goodsId) {
+
+        }
+        //充值有礼跳转到我的账户页面
+        public void toMyAcount() {
 
         }
     }

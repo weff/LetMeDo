@@ -69,7 +69,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
     private TextView rule;
     private TextView ruleValue;
     private String strToken;
-    private int goodsId = 103;
+    private int goodsId;
     private List<ShoppingCartBean.ResponseBean.ShoppingCartListBean> shoppingCartList;
     private TextView mPick;
     private JSONArray array;
@@ -82,6 +82,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
     private double goodsPrice;
     private String goodsImg;
     private int num = 0;
+    private int storeId;
 
 
     @Override
@@ -97,8 +98,6 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
         }
         //控件初始化
         initView();
-        //从html获取传来的商品
-//        getWebShop();
         //数据初始化
         initData();
     }
@@ -107,15 +106,21 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
         Back.setOnClickListener(this);
         Title.setText(R.string.goodsdetail);
         Edit.setVisibility(View.INVISIBLE);
+        //从html获取传来的商品
+        //从首页传递过来的goodsId数据
+        goodsId = getIntent().getIntExtra("goodsId",-1);
+        //商铺ID
+        storeId = getIntent().getIntExtra("storeId", -1);
         //商品详情展示接口
-        insponse(strToken, goodsId);
+        int shopId = 1003;
+        insponse(strToken, goodsId,shopId);
         tocart.setOnClickListener(this);
         buyview.setOnClickListener(this);
     }
 
-    private void insponse(String strToken, final int goodsId) {
+    private void insponse(String strToken, final int goodsId,int shopId) {
         Request request = new Request.Builder()
-                .url(Constant.CONSTANT + "/getGoods.do?token=" + strToken + "&goodsId=" + goodsId)
+                .url(Constant.CONSTANT + "/getGoods.do?token=" + strToken + "&goodsId=" + goodsId + "&shopId=" + shopId)
                 .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
@@ -267,7 +272,6 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
             case R.id.shop_cart:
                 //加入购物车
                 num++;
-//                EventBus.getDefault().post(new ShopCartCountBean(num));
                 initSponse(goodsId,1);
                 break;
             case R.id.shop_direct:

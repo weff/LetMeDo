@@ -374,9 +374,11 @@
             </RelativeLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/length_0.1"
+                android:layout_height="@dimen/length_0.5"
                 android:background="@color/black" />
+
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

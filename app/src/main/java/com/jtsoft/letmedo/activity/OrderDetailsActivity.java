@@ -64,7 +64,7 @@ import okhttp3.Response;
 
 public class OrderDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     //微信APP_ID
-    private static String WXAPP_ID = "wxa6e222a74f4e465b";
+    private static String WXAPP_ID = "wx95c9af95561af4d6";
     private ImageView Back;
     private TextView Tittle;
     private TextView Edit;
