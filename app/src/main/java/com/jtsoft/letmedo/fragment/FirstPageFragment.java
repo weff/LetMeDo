@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
 import com.jtsoft.letmedo.activity.MyAccountActivity;
+import com.jtsoft.letmedo.activity.PageActivity;
 import com.jtsoft.letmedo.activity.ShopCartsDetailActivity;
 import com.jtsoft.letmedo.bean.GoodsToCartsBean;
 import com.jtsoft.letmedo.bean.ShopCartCountBean;
@@ -117,13 +118,17 @@ public class FirstPageFragment extends Fragment {
         //网页跳转到网页
         @JavascriptInterface
         public void toPage(String url) {
+            Log.e("TAG","前端传递过来的url是：" + url);
+            String[] split = url.split(",");
+            String PageUrl = split[0];
+            String PageTittle = split[1];
             ToastUtil.showShort(context,"网页被点击了");
-//            intent = new Intent(context,PageActivity.class);
-//            bundle = new Bundle();
-//            bundle.putString("url",url);
-//            intent.putExtras(bundle);
-//            startActivity(intent);
-            mWebView.loadUrl(url);
+            intent = new Intent(context, PageActivity.class);
+            bundle = new Bundle();
+            bundle.putString("Pageurl",PageUrl);
+            bundle.putString("PageTittle",PageTittle);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 
