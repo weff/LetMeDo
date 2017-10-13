@@ -91,6 +91,18 @@ public class SharedpreferencesManager {
         return mSharedPreferences.getString(NetWorkUtils.FLAG_USERPASSWORD, "");
     }
 
+    //存储购物车的商品数量
+    public static void setCartNum(int cartNum) {
+        mEditor = mSharedPreferences.edit();
+        mEditor.putInt("cartNum",cartNum);
+        mEditor.apply();
+    }
+
+    public static int getCartNum() {
+
+        return mSharedPreferences.getInt("cartNum",-1);
+    }
+
     public static void getuserinfo() {
 //        userinfo.add(getUserphone());
 //        userinfo.add(getUserPassword());

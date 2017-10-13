@@ -80,6 +80,7 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
     private int state;
     private ShoppingCartBean.ResponseBean.ShoppingCartListBean shoppingCartListBean;
     private View numView;
+    private int shopId = 1003;
 
     //视图初始化
     @Nullable
@@ -201,7 +202,8 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
             totalCount = 0;
         }
         Log.d("TAG", "totalCount2----------" + totalCount);
-        EventBus.getDefault().post(new ShopCartCountBean(totalCount));
+        SharedpreferencesManager.setCartNum(totalCount);
+        EventBus.getDefault().post(new ShopCartCountBean(SharedpreferencesManager.getCartNum()));
         result = String.format("%.2f", totalPrice);
         ShopCartsMoney.setText(result + "");
         if (totalPrice >= MONEY) {
@@ -227,13 +229,13 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         shoppingCartListBean = shoppingCartList.get(position);
         int goodsId = shoppingCartListBean.getGoodsId();
         numView = showCountView;
-        initShopCartsNum(strToken, goodsId, 1);
+        initShopCartsNum(strToken, goodsId, 1,shopId);
     }
 
     //购物车中对商品加操作
-    private void initShopCartsNum(String strToken, int goodsId, final int currentCount) {
+    private void initShopCartsNum(String strToken, int goodsId, final int currentCount,int shopId) {
         Request request = new Request.Builder()
-                .url(Constant.CONSTANT + "/saveShoppingCart.do?token=" + strToken + "&goodsId=" + goodsId + "&num=" + currentCount)
+                .url(Constant.CONSTANT + "/saveShoppingCart.do?token=" + strToken + "&goodsId=" + goodsId + "&num=" + currentCount + "&shopId=" + shopId)
                 .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
@@ -289,13 +291,13 @@ public class ShopCartsFragment extends Fragment implements View.OnClickListener,
         shoppingCartListBean = shoppingCartList.get(position);
         int goodsId = shoppingCartListBean.getGoodsId();
         numView = showCountView;
-        initShopCartsCount(strToken, goodsId, -1);
+        initShopCartsCount(strToken, goodsId, -1,shopId);
     }
 
     //对购物车商品减的操作
-    private void initShopCartsCount(String strToken, int goodsId, int i) {
+    private void initShopCartsCount(String strToken, int goodsId, int i,int shopId) {
         Request request = new Request.Builder()
-                .url(Constant.CONSTANT + "/saveShoppingCart.do?token=" + strToken + "&goodsId=" + goodsId + "&num=" + i)
+                .url(Constant.CONSTANT + "/saveShoppingCart.do?token=" + strToken + "&goodsId=" + goodsId + "&num=" + i + "&shopId=" + shopId)
                 .build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {

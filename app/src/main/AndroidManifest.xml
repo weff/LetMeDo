@@ -104,6 +104,8 @@
             android:label="地图搜索"/>
         <activity android:name=".activity.MyAccountActivity"
             android:label="账户充值"/>
+        <activity android:name=".activity.PageActivity"
+            android:label="网页跳转到网页页面"/>
 
 
         <!-- ShareSDK的activity -->
