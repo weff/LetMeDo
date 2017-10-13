@@ -95,7 +95,6 @@ public class FirstPageFragment extends Fragment {
         //跳到商品详情
         @JavascriptInterface
         public void oGoodsDetail(int goodsId, int storeId) {
-            Log.e("TAG", "商品被调用了");
             intent = new Intent(context, ShopCartsDetailActivity.class);
             bundle = new Bundle();
             bundle.putInt("goodsId", goodsId);

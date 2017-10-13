@@ -108,17 +108,17 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
         Edit.setVisibility(View.INVISIBLE);
         //从html获取传来的商品
         //从首页传递过来的goodsId数据
-        goodsId = getIntent().getIntExtra("goodsId",-1);
+        goodsId = getIntent().getIntExtra("goodsId", -1);
         //商铺ID
         storeId = getIntent().getIntExtra("storeId", -1);
         //商品详情展示接口
         int shopId = 1003;
-        insponse(strToken, goodsId,shopId);
+        insponse(strToken, goodsId, shopId);
         tocart.setOnClickListener(this);
         buyview.setOnClickListener(this);
     }
 
-    private void insponse(String strToken, final int goodsId,int shopId) {
+    private void insponse(String strToken, final int goodsId, int shopId) {
         Request request = new Request.Builder()
                 .url(Constant.CONSTANT + "/getGoods.do?token=" + strToken + "&goodsId=" + goodsId + "&shopId=" + shopId)
                 .build();
@@ -129,7 +129,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(ShopCartsDetailActivity.this, R.string.no_net +"");
+                        ToastUtil.showShort(ShopCartsDetailActivity.this, R.string.no_net + "");
                         return;
                     }
                 });
@@ -195,9 +195,9 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                                     int imageHeight = resource.getIntrinsicHeight();
                                     int viewWidth = ShopCartsDetailActivity.this.getResources().getDisplayMetrics().widthPixels;
                                     //view高度等于 viewWidth * imageHeight / imageWidth
-                                    int viewHeight = (int) (imageHeight * viewWidth *1.0f/ imageWidth);
-                                    Log.e("TAG","图片的宽高："+imageWidth+" x "+imageHeight);
-                                    Log.e("TAG","view宽高："+viewWidth+" x "+viewHeight);
+                                    int viewHeight = (int) (imageHeight * viewWidth * 1.0f / imageWidth);
+                                    Log.e("TAG", "图片的宽高：" + imageWidth + " x " + imageHeight);
+                                    Log.e("TAG", "view宽高：" + viewWidth + " x " + viewHeight);
                                     //设置view的高度
                                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                     lp.height = viewHeight;
@@ -224,9 +224,9 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                                     int imageHeight = resource.getIntrinsicHeight();
                                     int viewWidth = ShopCartsDetailActivity.this.getResources().getDisplayMetrics().widthPixels;
                                     //view高度等于 viewWidth * imageHeight / imageWidth
-                                    int viewHeight = (int) (imageHeight * viewWidth *1.0f/ imageWidth);
-                                    Log.e("TAG","图片的宽高："+imageWidth+" x "+imageHeight);
-                                    Log.e("TAG","view宽高："+viewWidth+" x "+viewHeight);
+                                    int viewHeight = (int) (imageHeight * viewWidth * 1.0f / imageWidth);
+                                    Log.e("TAG", "图片的宽高：" + imageWidth + " x " + imageHeight);
+                                    Log.e("TAG", "view宽高：" + viewWidth + " x " + viewHeight);
                                     //设置view的高度
                                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                     lp.height = viewHeight;
@@ -275,7 +275,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
         //立即购买控件
         buyview = (Button) findViewById(R.id.shop_direct);
         //规格父控件
-        mainLinerLayout = (LinearLayout) this.findViewById(R.id.MyTable);
+        mainLinerLayout = (LinearLayout) findViewById(R.id.MyTable);
         //规格控件
         rule = (TextView) findViewById(R.id.list_1_1);
         //规格value控件
@@ -295,21 +295,21 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
             case R.id.shop_cart:
                 //加入购物车
                 num++;
-                initSponse(goodsId,1);
+                initSponse(goodsId, 1);
                 break;
             case R.id.shop_direct:
                 //立即购买，跳转到确认订单
                 if (goodsPrice < 15) {
-                    ToastUtil.showShort(ShopCartsDetailActivity.this,"购买商品的价格少于15元，无法进行配送；请先加入购物车");
+                    ToastUtil.showShort(ShopCartsDetailActivity.this, "购买商品的价格少于15元，无法进行配送；请先加入购物车");
                     return;
-                }else {
-                    intent = new Intent(ShopCartsDetailActivity.this,MyBillActivity.class);
-                    intent.putExtra("goodsId",goodsId);
-                    intent.putExtra("goodsName",goodsName);
-                    intent.putExtra("goodsPrice",goodsPrice);
-                    Log.e("GIG",goodsPrice + "");
-                    intent.putExtra("goodsImg",goodsImg);
-                    intent.putExtra("state",1);
+                } else {
+                    intent = new Intent(ShopCartsDetailActivity.this, MyBillActivity.class);
+                    intent.putExtra("goodsId", goodsId);
+                    intent.putExtra("goodsName", goodsName);
+                    intent.putExtra("goodsPrice", goodsPrice);
+                    Log.e("GIG", goodsPrice + "");
+                    intent.putExtra("goodsImg", goodsImg);
+                    intent.putExtra("state", 1);
                     startActivity(intent);
                 }
 
@@ -331,7 +331,7 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showShort(ShopCartsDetailActivity.this,R.string.no_net +"");
+                        ToastUtil.showShort(ShopCartsDetailActivity.this, R.string.no_net + "");
                         return;
                     }
                 });
@@ -346,11 +346,11 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.showShort(ShopCartsDetailActivity.this,"加入购物车成功");
+                            ToastUtil.showShort(ShopCartsDetailActivity.this, "加入购物车成功");
                             return;
                         }
                     });
-                }else {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
