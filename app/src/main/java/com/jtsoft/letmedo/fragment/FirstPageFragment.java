@@ -122,13 +122,12 @@ public class FirstPageFragment extends Fragment {
             String[] split = url.split(",");
             String PageUrl = split[0];
             String PageTittle = split[1];
-            ToastUtil.showShort(context,"网页被点击了");
-            intent = new Intent(context, PageActivity.class);
-            bundle = new Bundle();
-            bundle.putString("Pageurl",PageUrl);
-            bundle.putString("PageTittle",PageTittle);
-            intent.putExtras(bundle);
-            startActivity(intent);
+                intent = new Intent(context, PageActivity.class);
+                bundle = new Bundle();
+                bundle.putString("Pageurl",PageUrl);
+                bundle.putString("PageTittle",PageTittle);
+                intent.putExtras(bundle);
+                startActivity(intent);
         }
     }
 

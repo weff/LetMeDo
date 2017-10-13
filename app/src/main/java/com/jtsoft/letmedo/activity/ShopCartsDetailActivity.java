@@ -151,10 +151,10 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                     final String spec = goodsBean.getSpec();
                     //获取商品url
                     final String detail = goodsBean.getDetail();
-
+                    Log.e("TAG", "detail:" + detail);
                     String[] split = detail.split("\"");
                     final String str = split[1];
-                    Log.e("TAG", str);
+                    Log.e("TAG", "str:" + str);
                     //获取商品的图片
                     goodsImg = goodsBean.getImage();
                     runOnUiThread(new Runnable() {
@@ -181,7 +181,28 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                                 e.printStackTrace();
                             }
                             //商品图片
-                            Glide.with(ShopCartsDetailActivity.this).load(goodsImg).into(shopImg);
+                            Glide.with(ShopCartsDetailActivity.this).load(goodsImg).listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    int imageWidth = resource.getIntrinsicWidth();
+                                    int imageHeight = resource.getIntrinsicHeight();
+                                    int viewWidth = ShopCartsDetailActivity.this.getResources().getDisplayMetrics().widthPixels;
+                                    //view高度等于 viewWidth * imageHeight / imageWidth
+                                    int viewHeight = (int) (imageHeight * viewWidth *1.0f/ imageWidth);
+                                    Log.e("TAG","图片的宽高："+imageWidth+" x "+imageHeight);
+                                    Log.e("TAG","view宽高："+viewWidth+" x "+viewHeight);
+                                    //设置view的高度
+                                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    lp.height = viewHeight;
+                                    shopImg.setLayoutParams(lp);
+                                    return false;
+                                }
+                            }).into(shopImg);
                             //商品名称
                             shopSubject.setText(goodsName + "");
                             //商品价格
