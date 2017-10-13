@@ -160,7 +160,7 @@ public class BillOrderBean {
             private int userId;
             private double orderPrice;
             private double orderOldPrice;
-            private int expressPrice;
+            private double expressPrice;
             private Object couponReceiveId;
             private double couponPrice;
             private Object payTime;
@@ -230,7 +230,7 @@ public class BillOrderBean {
                 this.orderOldPrice = orderOldPrice;
             }
 
-            public int getExpressPrice() {
+            public double getExpressPrice() {
                 return expressPrice;
             }
 

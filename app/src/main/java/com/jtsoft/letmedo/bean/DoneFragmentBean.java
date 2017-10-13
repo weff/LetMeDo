@@ -161,9 +161,9 @@ public class DoneFragmentBean {
             private int userId;
             private double orderPrice;
             private double orderOldPrice;
-            private int expressPrice;
+            private double expressPrice;
             private Object couponReceiveId;
-            private int couponPrice;
+            private double couponPrice;
             private long payTime;
             private int payType;
             private int deliveryLocationId;
@@ -231,7 +231,7 @@ public class DoneFragmentBean {
                 this.orderOldPrice = orderOldPrice;
             }
 
-            public int getExpressPrice() {
+            public double getExpressPrice() {
                 return expressPrice;
             }
 
@@ -247,7 +247,7 @@ public class DoneFragmentBean {
                 this.couponReceiveId = couponReceiveId;
             }
 
-            public int getCouponPrice() {
+            public double getCouponPrice() {
                 return couponPrice;
             }
 

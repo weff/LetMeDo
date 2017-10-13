@@ -171,9 +171,11 @@ public class ShopCartsDetailActivity extends AppCompatActivity implements View.O
                                     JSONObject jsonObject = (JSONObject) array.get(i);
                                     key = jsonObject.getString("key");
                                     txt.setText(key);
+                                    txt.setTextColor(Color.BLACK);
                                     MyTableTextView txt_value = (MyTableTextView) relativeLayout.findViewById(R.id.list_1_2);
                                     value = jsonObject.getString("value");
                                     txt_value.setText(value);
+                                    txt_value.setTextColor(Color.BLACK);
                                     mainLinerLayout.addView(relativeLayout);
                                     Log.e("TAG", "key:::" + key + ":::: value:" + value);
                                 }
