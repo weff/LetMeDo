@@ -19,7 +19,7 @@ import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
  * Created by admin on 2017/10/12.
  */
 
-public class PageActivity extends AppCompatActivity{
+public class PageActivity extends AppCompatActivity {
 
     private WebView mWebView;
     private ImageView Back;
@@ -74,13 +74,14 @@ public class PageActivity extends AppCompatActivity{
     }
 
     private void initData() {
-        String url = getIntent().getStringExtra("Pageurl");
+        String url = getIntent().getStringExtra("PageUrl");
         String tittle = getIntent().getStringExtra("PageTittle");
         Tittle.setText(tittle);
         mWebView.loadUrl(url);
     }
-     //内部类 供js调用原生
-    public class HomeObject{
+
+    //内部类 供js调用原生
+    public class HomeObject {
         private Intent intent;
         private Bundle bundle;
 
@@ -91,7 +92,7 @@ public class PageActivity extends AppCompatActivity{
             intent = new Intent(PageActivity.this, ShopCartsDetailActivity.class);
             bundle = new Bundle();
             bundle.putInt("goodsId", goodsId);
-            Log.e("TAG","首页的商品Id是：" + goodsId);
+            Log.e("TAG", "首页的商品Id是：" + goodsId);
             bundle.putInt("storeId", storeId);
             intent.putExtras(bundle);
             startActivity(intent);

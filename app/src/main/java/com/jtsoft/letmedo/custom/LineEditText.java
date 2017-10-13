@@ -5,12 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
 /**
  * Created by admin on 2017/8/3.
  */
-public class LineEditText extends EditText {
+public class LineEditText extends android.support.v7.widget.AppCompatEditText {
     private Paint paint;
     public LineEditText(Context context) {
         this(context,null);
@@ -20,7 +19,7 @@ public class LineEditText extends EditText {
         super(context, attrs);
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.GRAY);
+        paint.setColor(Color.BLACK);
         // 开启抗锯齿 较耗内存
         paint.setAntiAlias(true);
     }

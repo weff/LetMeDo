@@ -89,7 +89,7 @@
                         android:layout_marginBottom="@dimen/length_10"
                         android:layout_marginTop="@dimen/length_10"
                         android:text="6个"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray"
                         android:textSize="@dimen/size_14" />
                 </LinearLayout>
 
@@ -253,7 +253,7 @@
                 android:paddingLeft="@dimen/length_10"
                 android:paddingRight="@dimen/length_10"
                 android:text="@string/shop_direct"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
                 android:textSize="@dimen/size_14" />
 
             <Button

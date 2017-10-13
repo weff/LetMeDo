@@ -124,7 +124,7 @@ public class FirstPageFragment extends Fragment {
             String PageTittle = split[1];
                 intent = new Intent(context, PageActivity.class);
                 bundle = new Bundle();
-                bundle.putString("Pageurl",PageUrl);
+                bundle.putString("PageUrl",PageUrl);
                 bundle.putString("PageTittle",PageTittle);
                 intent.putExtras(bundle);
                 startActivity(intent);
