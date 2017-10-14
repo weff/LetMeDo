@@ -68,7 +68,7 @@ public class FirstPageFragment extends Fragment {
         mWebView = (WebView) view.findViewById(R.id.webview);
         WebSettings settings = mWebView.getSettings();
         mWebView.loadUrl(Constant.FIRST_PAGE);
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//设置不从缓存中加载网页
+//        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//设置不从缓存中加载网页
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
         settings.setJavaScriptCanOpenWindowsAutomatically(true);

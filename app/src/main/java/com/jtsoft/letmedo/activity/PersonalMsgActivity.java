@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -87,7 +89,13 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personalmsg);
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         //控件初始化
         initView();
         initRespon();
@@ -96,7 +104,6 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initRespon() {
-      strToken = SharedpreferencesManager.getToken();
         Request request = new Request.Builder()
                 .url(Constant.CONSTANT + "/getCustomerInfo.do?token=" + strToken)
                 .build();
@@ -158,7 +165,7 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
         Tittle.setText(R.string.personalmsg);
         Edit.setText(R.string.save);
         Edit.setOnClickListener(this);
-        ivHeader.setOnClickListener(this);
+//        ivHeader.setOnClickListener(this);
 //        tvDate.setOnClickListener(this);
 
     }
@@ -181,6 +188,8 @@ public class PersonalMsgActivity extends AppCompatActivity implements View.OnCli
         mFemale = (CheckBox) findViewById(R.id.female);
         //男性单选按钮
         mMale = (CheckBox) findViewById(R.id.male);
+
+        strToken = SharedpreferencesManager.getToken();
         //日期控件
 //        tvDate = (TextView) findViewById(R.id.date);
         mMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

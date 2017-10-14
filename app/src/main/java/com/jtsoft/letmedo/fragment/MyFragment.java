@@ -14,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +29,7 @@ import com.jtsoft.letmedo.activity.SetPasswordActivity;
 import com.jtsoft.letmedo.bean.GetCouponCount;
 import com.jtsoft.letmedo.bean.GetGoodsNumBean;
 import com.jtsoft.letmedo.bean.PersonalMsgBean;
+import com.jtsoft.letmedo.custom.CircleImageView;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
@@ -52,7 +52,7 @@ import okhttp3.Response;
 public class MyFragment extends Fragment implements View.OnClickListener {
 
     private View view;
-    private ImageView HeaderImg;
+    private CircleImageView HeaderImg;
     private TextView AcountName;
     private RelativeLayout OrderBill;
     private LinearLayout PrePay;
@@ -311,7 +311,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         //头像控件
-        HeaderImg = (ImageView) view.findViewById(R.id.about_my_personal);
+        HeaderImg = (CircleImageView) view.findViewById(R.id.about_my_personal);
         //用户账号控件
         AcountName = (TextView) view.findViewById(R.id.name_my);
         //订单控件
