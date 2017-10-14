@@ -10,7 +10,7 @@
         android:layout_below="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/length_150"
-        android:text="99999.60元"
+        android:text="0.00元"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="@dimen/size_24"

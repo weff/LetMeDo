@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.R;
@@ -83,6 +84,7 @@ public class FirstPageFragment extends Fragment {
         //触摸焦点起作用
         mWebView.requestFocus();
         mWebView.addJavascriptInterface(new HomeObject(), "HomeObject");
+        mWebView.setWebViewClient(new WebViewClient());
     }
 
 
