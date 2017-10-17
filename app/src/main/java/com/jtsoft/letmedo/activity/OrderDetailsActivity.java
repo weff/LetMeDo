@@ -7,11 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,31 +22,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alipay.sdk.app.PayTask;
+import com.jtsoft.letmedo.view.CommonView;
+import com.jtsoft.letmedo.common.pay.PayHelper;
 import com.google.gson.Gson;
 import com.jtsoft.letmedo.MainActivity;
 import com.jtsoft.letmedo.R;
+import com.jtsoft.letmedo.activity.base.BaseActivity;
 import com.jtsoft.letmedo.adapter.OrderDetailsAdapter;
-import com.jtsoft.letmedo.bean.AlipayBean;
 import com.jtsoft.letmedo.bean.BalancePayBean;
 import com.jtsoft.letmedo.bean.CancelOrderBean;
 import com.jtsoft.letmedo.bean.JsonBeanUserRegister;
 import com.jtsoft.letmedo.bean.OrderDetailsBean;
 import com.jtsoft.letmedo.custom.ListViewForScrollView;
+import com.jtsoft.letmedo.model.PayOrderBean;
 import com.jtsoft.letmedo.spUtil.SharedpreferencesManager;
 import com.jtsoft.letmedo.utils.Constant;
 import com.jtsoft.letmedo.utils.Model.ToastUtil;
 import com.jtsoft.letmedo.utils.NetWorkUtils;
-import com.jtsoft.letmedo.utils.PayResult;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -62,9 +56,9 @@ import okhttp3.Response;
  * 订单详情页面
  */
 
-public class OrderDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class OrderDetailsActivity extends BaseActivity implements CommonView,View.OnClickListener {
     //微信APP_ID
-    private static String WXAPP_ID = "wx95c9af95561af4d6";
+    //private static String WXAPP_ID = "wx95c9af95561af4d6";
     private ImageView Back;
     private TextView Tittle;
     private TextView Edit;
@@ -88,7 +82,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     private CheckBox mWXCheckBox;
     private CheckBox mBalanceCheckBox;
     private ImageView mCancle;
-    private IWXAPI mIwxapi;
+    //private IWXAPI mIwxapi;
     private CheckBox mAliPayCheckBox;
     private List<OrderDetailsBean.ResponseBean.OrderBean.OrderGoodsListBean> orderGoodsList;
     private TextView mRemainTime;
@@ -127,7 +121,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     private Handler mHandler;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orderdetails);
         if (Build.VERSION.SDK_INT >= 21) {
@@ -137,7 +131,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        mIwxapi = WXAPIFactory.createWXAPI(this, WXAPP_ID, false);
+        /*mIwxapi = WXAPIFactory.createWXAPI(this, WXAPP_ID, false);
         mIwxapi.registerApp(WXAPP_ID);
         mHandler = new Handler(){
             @Override
@@ -159,7 +153,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                         break;
                 }
             }
-        };
+        };*/
         //控件初始化
         initView();
         //数据初始化
@@ -327,6 +321,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         });
 
     }
+
 
     class MyCount extends CountDownTimer {
 
@@ -597,7 +592,8 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                     mBalanceCheckBox.setChecked(false);
                     mRelay.setVisibility(View.GONE);
                     //支付宝支付逻辑
-                    AliPay(orderId,5,strToken);
+                    //AliPay(orderId,5,strToken);
+                    getPresenter().getPayOrder(orderId,PayHelper.PAYMENT_TYPE_CASH_ALIPAY);
                 }
             }
         });
@@ -611,8 +607,34 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         });
 
     }
+
+    public void pay(final int payMethod,String appRequest, String paySerial) {
+        Log.d("qrh", "payMethod=" + payMethod);
+        PayHelper.getInstance().entryPay(this, appRequest, paySerial, payMethod, new PayHelper.PayHelperCallBack() {
+            @Override
+            public void onSuccess() {
+                if (payMethod == PayHelper.PAYMENT_TYPE_CASH_WXPAY || payMethod == PayHelper.PAYMENT_TYPE_CASH_ALIPAY) {
+                    Toast.makeText(OrderDetailsActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error_code) {
+                Toast.makeText(OrderDetailsActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDealing() {
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
+    }
+
     //支付宝支付逻辑
-    private void AliPay(int orderId, int i, String strToken) {
+    /*private void AliPay(int orderId, int i, String strToken) {
         final Request request = new Request.Builder()
                 .url(Constant.CONSTANT + "/payOrder.do?orderId=" + orderId + "&payType=" + i + "&token=" + strToken)
                 .build();
@@ -629,18 +651,25 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 Gson gson = new Gson();
                 AlipayBean alipayBean = gson.fromJson(strJson, AlipayBean.class);
                 if (alipayBean.getCode() == NetWorkUtils.CODE_SUCCESS) {
-                    String orderStr = alipayBean.getResponse().getOrderStr();
+                    final String orderStr = alipayBean.getResponse().getOrderStr();
                     Log.e("TAG","orderStr===" + orderStr);
-                            PayTask alipay = new PayTask(OrderDetailsActivity.this);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pay(PayHelper.PAYMENT_TYPE_CASH_ALIPAY,orderStr,null);
+                        }
+                    });
+
+                            *//*PayTask alipay = new PayTask(OrderDetailsActivity.this);
                             Map<String, String> result = alipay.payV2(orderStr, true);
                             Message msg = Message.obtain();
                             msg.what = SDK_PAY_FLAG;
                             msg.obj = result;
-                            mHandler.sendMessage(msg);
+                            mHandler.sendMessage(msg);*//*
                 }
             }
         });
-    }
+    }*/
 
     //余额支付逻辑
     private void BalancePay(String strToken, int orderId, int i, String s) {
@@ -691,12 +720,12 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     //微信支付逻辑
-    private void WetChatPay(String payInfo) {
+    /*private void WetChatPay(String payInfo) {
         String str = payInfo;
         //TODO
         PayReq mpayReq = new PayReq();
         mIwxapi.sendReq(mpayReq);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -733,5 +762,11 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
             mCode.setClickable(false);
             mCode.setText(millisUntilFinished / 1000 + "秒");
         }
+    }
+
+    @Override
+    public void refresh(Object obj, int type, Object extra) {
+        PayOrderBean bean = (PayOrderBean)obj;
+        pay(PayHelper.PAYMENT_TYPE_CASH_ALIPAY,bean.orderStr,null);
     }
 }
